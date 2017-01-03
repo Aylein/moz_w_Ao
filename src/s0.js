@@ -24,21 +24,30 @@ class Index extends React.Component{
                     {value: 2, text: "2"},
                     {value: 3, text: "3"}
                 ]}
-            ]
+            ],
+            checkbox: {name: "va3", text: "va3", value: 1, checked: true},
+            checkboxList: {name: "va4", defaultValue: [1, 2], list: [
+                    {value: 1, text: "1"},
+                    {value: 2, text: "2"},
+                    {value: 3, text: "3"}
+            ]}
         }
         this.onFormChange = this.onFormChange.bind(this);
         this.p = Object.assign(this.state);
     }
 
     render(){
-        console.log(1);
         return <div>
             <img src={require("./img/master.jpg")}/>
-            <span><font className="fa fa-times"/>this is Index</span>
+            <h1><font className="fa fa-times"/>this is Index</h1>
+            <Form.CheckBox.Item {...this.state.checkbox}/>
+            <Form.CheckBox fnClick={e => {
+                this.setState({checkboxList: Object.assign({}, this.state.checkboxList, {defaultValue: e.value})});
+            }} {...this.state.checkboxList}/>
             <Form/>
             <Form.Form fnSubmit={() => { alert(2); }}>
                 {this.state.values && this.state.values.length > 0 ? this.state.values.map((va, i) =>
-                    <Form.Input key={i} {...va} fnChange={this.onFormChange}/>
+                    <Form.Input key={i} fnChange={this.onFormChange} {...va}/>
                 ) : null}
                 <Form.Button type="submit" value="OK" fnClick={() => { alert(1); }}/>
             </Form.Form>

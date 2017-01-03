@@ -2,6 +2,7 @@ import React from "react";
 import Form from "./form";
 import Input from "./input";
 import Button from "./button";
+import CheckBox from "./checkbox";
 
 class Index extends React.Component{
     render(){
@@ -14,5 +15,6 @@ class Index extends React.Component{
 Index.Form = Form;
 Index.Input = Input;
 Index.Button = Button;
+Index.CheckBox = CheckBox;
 
 export default Index;

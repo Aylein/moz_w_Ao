@@ -8,7 +8,7 @@ var copyWebpackPlugin = require("copy-webpack-plugin");
 module.exports = {
     devtool: "source-map",
     entry: {
-        //polyfill: ["es5-shim", "es5-shim/es5-sham"],
+        app: "./src/app.js",
         es6: ["es6-promise", "whatwg-fetch"], //fetch 和 promise 支持
         react: ["react", "react-dom", "react-dom"],
         main: path.resolve(__dirname, "src")
@@ -46,7 +46,7 @@ module.exports = {
                 }
             },
             {test: /\.css$/, loader: extractTextPlugin.extract("style-loader", "css-loader")},
-			{test: /\.less$/, loader: extractTextPlugin.extract("style-loader", "css-loader!less-loader")},
+            {test: /\.less$/, loader: extractTextPlugin.extract("style-loader", "css-loader!less-loader")},
             {test: /\.(png|jpg|gif)$/, loader: "url-loader?limit=10240&name=./img/[hash:8].[name].[ext]"},
             {test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "url-loader?limit=10240&name=./font/[hash:8].[name].[ext]"},
             {test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "file-loader?limit=10240&name=./font/[hash:8].[name].[ext]"}
