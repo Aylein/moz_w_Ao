@@ -1,18 +1,17 @@
 import React from "react";
 import ReactDom from "react-dom";
-import {Link} from "react-router";
+import {Router, Route, IndexRoute, NotFoundRoute, browserHistory} from "react-router";
 
-import "font-awesome-webpack";
+import Index from "./pages/index"
+import S0 from "./pages/s0";
+import E404 from "./pages/404";
 
-export default class Index extends React.Component{
-    render(){
-        return <div>
-            <h1>Hello Word !</h1>
-            <div>
-                <Link to="/">index - s0</Link> &nbsp;
-                <Link to="/s1">s1</Link>
-            </div>
-            <div>{this.props.children}</div>
-        </div>
-    }
-}
+ReactDom.render(
+    <Router history={browserHistory}>
+        <Route path="/" component={Index}>
+            <IndexRoute component={S0}/>
+            <Route path="/test" component={S0}/>
+            <Route path="*" component={E404}/>
+        </Route>
+    </Router>
+, document.getElementById("main"));

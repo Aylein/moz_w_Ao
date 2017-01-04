@@ -1,0 +1,50 @@
+@import "../../../styles/index";
+@font_color: #0093ff;
+@font_color_disabled: @disabled_color;
+@border_color: #a9a9a9;
+@border_radius: 3px;
+.may_form_checkbox, .may_form_radio {
+    cursor: pointer;
+    padding: 0 0.3rem;
+    .fa {
+        color: @font_color;
+        font-size: 1.2rem;
+        padding: 0 0.3rem;
+    }
+    .fa.disabled {
+        color: @border_color;
+    }
+}
+.may_form_checkbox.disabled, .may_form_radio.disabled {
+    cursor: default;
+    .fa {
+        color: @border_color;
+    }
+}
+.may_form_text {
+    position: relative;
+    input, input:focus, input:disabled {
+        padding: 0.3rem 1.8rem 0.2rem 0.5rem;
+        border: 0.1rem solid @border_color;
+        border-radius: @border_radius;
+    }
+    input:disabled {
+        background-color: @font_color_disabled;
+    }
+    .fa {
+        position: absolute;
+        right: 0.5rem;
+        top: 0.5rem;
+        font-size: 0.6rem;
+        cursor: pointer;
+        color: @border_color;
+    }
+}
+.may_form_button {
+    border: 0.1rem solid @border_color;
+    border-radius: @border_radius;
+    height: 2.2rem;
+    padding: 0 0.5rem;
+    background: #ffffff;
+    line-height: 2.2rem;
+}

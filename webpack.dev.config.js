@@ -7,7 +7,6 @@ var html = require("html-webpack-plugin");
 module.exports = {
     devtool: "cheap-module-eval-source-map",
     entry: [
-        "./src/app.js",
         "es6-promise",
         "whatwg-fetch",
         "react",

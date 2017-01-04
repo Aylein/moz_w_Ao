@@ -5,10 +5,11 @@ var es3ifyPlugin = require("es3ify-webpack-plugin");
 var extractTextPlugin = require("extract-text-webpack-plugin");
 var copyWebpackPlugin = require("copy-webpack-plugin");
 
+;
+
 module.exports = {
-    devtool: "source-map",
+    devtool: "cheap-module-source-map",
     entry: {
-        app: "./src/app.js",
         es6: ["es6-promise", "whatwg-fetch"], //fetch 和 promise 支持
         react: ["react", "react-dom", "react-dom"],
         main: path.resolve(__dirname, "src")
@@ -19,6 +20,11 @@ module.exports = {
 		filename: "./lib/[chunkhash:8].[name].min.js"
     },
     plugins: [
+        new webpack.DefinePlugin({
+            "process.env": {
+                NODE_ENV: JSON.stringify("production")
+            }
+        }),
         new es3ifyPlugin(), //修复 default 在 ie8 的兼容问题 //插件有错需要修改
         new webpack.optimize.OccurenceOrderPlugin(),
         new webpack.optimize.CommonsChunkPlugin({name: ["es6", "react"], minChunks: Infinity}),

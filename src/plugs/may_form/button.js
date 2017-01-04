@@ -1,4 +1,5 @@
 import React from "react";
+import "./styles/style.less";
 
 class Button extends React.Component{
     constructor(){
@@ -21,8 +22,8 @@ class Button extends React.Component{
 }
 
 Button.defaultProps = {
+    className: "may_form_button",
     type: "submit", // submit reset button
-    className: "",
     value: undefined,
 
     fnClick: undefined

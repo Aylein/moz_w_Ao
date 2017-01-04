@@ -1,7 +1,7 @@
 import React from "react";
-import {Form} from "./plugs";
+import {Form} from "../plugs";
 
-import "./styles/index.less";
+import "../styles/index.less";
 
 class Index extends React.Component{
     constructor(){
@@ -28,9 +28,16 @@ class Index extends React.Component{
             checkbox: {name: "va3", text: "va3", value: 1, checked: true},
             checkboxList: {name: "va4", defaultValue: [1, 2], list: [
                     {value: 1, text: "1"},
-                    {value: 2, text: "2"},
+                    {value: 2, text: "2", disabled: true},
                     {value: 3, text: "3"}
-            ]}
+            ]},
+            radio: {name: "va5", text: "va5", value: 1, checked: true},
+            radioList: {name: "va6", value: 2, list: [
+                    {value: 1, text: "1"},
+                    {value: 2, text: "2", disabled: true},
+                    {value: 3, text: "3"}
+            ]},
+            text: {name: "va7", type: "text", defaultValue: "dsfsdf"}
         }
         this.onFormChange = this.onFormChange.bind(this);
         this.p = Object.assign(this.state);
@@ -38,12 +45,21 @@ class Index extends React.Component{
 
     render(){
         return <div>
-            <img src={require("./img/master.jpg")}/>
+            <img src={require("../img/master.jpg")}/>
             <h1><font className="fa fa-times"/>this is Index</h1>
             <Form.CheckBox.Item {...this.state.checkbox}/>
             <Form.CheckBox fnClick={e => {
-                this.setState({checkboxList: Object.assign({}, this.state.checkboxList, {defaultValue: e.value})});
+                //this.setState({checkboxList: Object.assign({}, this.state.checkboxList, {defaultValue: e.value})});
             }} {...this.state.checkboxList}/>
+            <Form.Radio.Item {...this.state.radio}/>
+            <Form.Radio fnClick={e => {
+                this.setState({radioList: Object.assign({}, this.state.radioList, {value: e.value})});
+            }} {...this.state.radioList}/>
+            <Form.Text {...this.state.text} fnChange={e => {
+                console.log(e);
+                this.setState({text: Object.assign({}, this.state.text, {value: e.value})});
+            }}/>
+            <Form.Button value="OK"/>
             <Form/>
             <Form.Form fnSubmit={() => { alert(2); }}>
                 {this.state.values && this.state.values.length > 0 ? this.state.values.map((va, i) =>

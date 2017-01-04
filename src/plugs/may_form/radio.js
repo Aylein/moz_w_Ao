@@ -1,11 +1,11 @@
 import React from "react";
 import "./styles/style.less";
 
-class CheckBoxList extends React.Component{
+class RadioList extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            defaultValue: this.props.defaultValue || []
+            defaultValue: this.props.value || undefined
         }
         this.onClick = this.onClick.bind(this);
     }
@@ -13,37 +13,41 @@ class CheckBoxList extends React.Component{
     render(){
         return <label className={this.props.className}>
             {this.props.list.map((va, i) => 
-                <CheckBox 
+                <Radio 
                     key={i} 
                     name={this.props.name} 
-                    {...this.isConstrolled() ? {checked: this.isChecked(va.value)} : {defaultChecked: this.isChecked(va.value)}}
                     fnClick={this.onClick}
                     {...va}
+                    //{...this.isConstrolled() ? {defaultChecked: this.isChecked(va.value)} : {checked: this.isChecked(va.value)}}
+                    checked={this.isChecked(va.value)}
                 />
             )}
         </label>;
     }
 
     isChecked(value){
-        return this.isConstrolled() ? this.props.value.indexOf(value) > -1 : this.state.defaultValue.indexOf(value) > -1;
+        return this.isConstrolled() ? this.props.value === value : this.state.defaultValue === value;
     }
 
     isConstrolled(){
         return this.props.value !== null && this.props.value !== undefined;
     }
 
+    getDisabled(){
+        return this.props.list.filter(va => va.disabled == true);
+    }
+
     onClick(e){
         if(this.props.fnClick && typeof this.props.fnClick == "function"){
-            let controlled = this.isConstrolled(), res = controlled ? Object.assign([], this.props.value) : Object.assign([], this.state.defaultValue);
-            if(e.checked) res.push(e.value);
-            else res = res.filter(va => va !== e.value);
-            this.props.fnClick({name: this.props.name, value: res});
-            if(!controlled) this.setState({defaultValue: res});
+            let controlled = this.isConstrolled(), disabled = this.getDisabled(), res = controlled ? this.props.value : this.state.defaultValue;
+            if(disabled.length > 0 && disabled.map(va => va.value).indexOf(res) > -1) return;
+            this.props.fnClick({name: this.props.name, value: e.value});
+            if(!controlled) this.setState({defaultValue: e.defaultValue});
         }
     }
 }
 
-CheckBoxList.defaultProps = {
+RadioList.defaultProps = {
     className: "",
     name: "",
     value: undefined,
@@ -53,7 +57,7 @@ CheckBoxList.defaultProps = {
     fnClick: null
 };
 
-class CheckBox extends React.Component{
+class Radio extends React.Component{
     constructor(props){
         super(props);
         this.state = {
@@ -66,7 +70,7 @@ class CheckBox extends React.Component{
     render(){
         let checked = this.isChecked();
         return <label className={this.props.className + (this.props.disabled ? " disabled" : "")} onClick={this.onClick}>
-            <font className={"fa " + (checked ? "fa-check-square" : "fa-square")}/>{this.props.text}
+            <font className={"fa " + (checked ? "fa-dot-circle-o" : "fa-circle")}/>{this.props.text}
         </label>;
     }
 
@@ -87,7 +91,7 @@ class CheckBox extends React.Component{
     }
 }
 
-CheckBox.defaultProps = {
+Radio.defaultProps = {
     text: "",
     name: "",
     value: "",
@@ -96,10 +100,10 @@ CheckBox.defaultProps = {
 
     disabled: false,
 
-    className: "may_form_checkbox",
+    className: "may_form_radio",
     fnClick: null
 };
 
-CheckBoxList.Item = CheckBox;
+RadioList.Item = Radio;
 
-export default CheckBoxList;
+export default RadioList;
