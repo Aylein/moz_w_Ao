@@ -69,7 +69,7 @@ class Radio extends React.Component{
 
     render(){
         let checked = this.isChecked();
-        return <label className={this.props.className + (this.props.disabled ? " disabled" : "")} onClick={this.onClick}>
+        return <label className={"may_form_radio" + (this.props.disabled ? " disabled" : "")} onClick={this.onClick}>
             <font className={"fa " + (checked ? "fa-dot-circle-o" : "fa-circle")}/>{this.props.text}
         </label>;
     }
@@ -100,7 +100,7 @@ Radio.defaultProps = {
 
     disabled: false,
 
-    className: "may_form_radio",
+    //className: "",
     fnClick: null
 };
 

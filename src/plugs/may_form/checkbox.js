@@ -65,7 +65,7 @@ class CheckBox extends React.Component{
 
     render(){
         let checked = this.isChecked();
-        return <label className={this.props.className + (this.props.disabled ? " disabled" : "")} onClick={this.onClick}>
+        return <label className={"may_form_checkbox" + (this.props.disabled ? " disabled" : "")} onClick={this.onClick}>
             <font className={"fa " + (checked ? "fa-check-square" : "fa-square")}/>{this.props.text}
         </label>;
     }
@@ -96,7 +96,7 @@ CheckBox.defaultProps = {
 
     disabled: false,
 
-    className: "may_form_checkbox",
+    //className: "",
     fnClick: null
 };
 

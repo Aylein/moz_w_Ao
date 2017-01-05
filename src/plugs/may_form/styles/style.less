@@ -2,7 +2,8 @@
 @font_color: #0093ff;
 @font_color_disabled: @disabled_color;
 @border_color: #a9a9a9;
-@border_radius: 3px;
+@border_radius: 0.2rem;
+@input_height: 2.8rem;
 .may_form_checkbox, .may_form_radio {
     cursor: pointer;
     padding: 0 0.3rem;
@@ -24,27 +25,94 @@
 .may_form_text {
     position: relative;
     input, input:focus, input:disabled {
-        padding: 0.3rem 1.8rem 0.2rem 0.5rem;
+
+        height: @input_height;
+        // line-height: @input_height;
+        // font-size: 1.3rem;
+        // vertical-align: baseline;
+
+        padding: 0 2rem 0 0.5rem;
         border: 0.1rem solid @border_color;
         border-radius: @border_radius;
+        float: left;
     }
     input:disabled {
         background-color: @font_color_disabled;
     }
     .fa {
         position: absolute;
-        right: 0.5rem;
-        top: 0.5rem;
-        font-size: 0.6rem;
+        right: 0.7rem;
+        top: 0.7rem;
+        font-size: 1rem;
         cursor: pointer;
         color: @border_color;
     }
 }
-.may_form_button {
-    border: 0.1rem solid @border_color;
-    border-radius: @border_radius;
-    height: 2.2rem;
-    padding: 0 0.5rem;
-    background: #ffffff;
-    line-height: 2.2rem;
+.may_form_text:after {
+    display: block;
+    clear: both;
 }
+.may_form_button {
+    position: relative;
+    button {
+        height: @input_height;
+        // line-height: @input_height;
+        // font-size: 1.3rem;
+        // vertical-align: baseline;
+
+        border: 0.1rem solid @border_color;
+        border-radius: @border_radius;
+        padding: 0 1.5rem; 
+        cursor: pointer;
+        float: left;
+    }
+    .fa {
+        position: absolute;
+        left: 1.1rem;
+        top: 0.8rem;
+        display: block;
+        width: 1rem;
+        height: 1rem;
+        font-size: 1rem;
+    }
+}
+.may_form_button:after {
+    display: block;
+    clear: both;
+}
+// .may_form_button.icon {
+//     padding: 0 1.5rem 0 2.5rem;
+// }
+// .may_form_button:hover {
+//     opacity: 0.9;
+// }
+// .may_form_button:active {
+//     opacity: 0.8;
+// }
+// .may_form_button:visited {
+//     opacity: 1;
+// }
+// .may_form_button:disabled {
+//     opacity: 0.4;
+//     cursor: default;
+// }
+// .may_form_button.info {
+//     background-color: #5e87b0; 
+//     color: #ffffff;
+//     border-color: #5e87b0;
+// }
+// .may_form_button.warning {
+//     background-color: #5e87b0; 
+//     color: #ffffff;
+//     border-color: #5e87b0;
+// }
+// .may_form_button.error {
+//     background-color: #5e87b0; 
+//     color: #ffffff;
+//     border-color: #5e87b0;
+// }
+// .may_form_button.alter {
+//     background-color: #5e87b0; 
+//     color: #ffffff;
+//     border-color: #5e87b0;
+// }

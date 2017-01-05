@@ -8,12 +8,18 @@ class Button extends React.Component{
     }
 
     render(){
-        return <input 
-            type={["submit", "reset"].indexOf(this.props.type) > -1 && this.props.type || "button"}
-            className={this.props.className}
-            value={this.props.value}
-            onClick={this.onClick}
-        />
+        return <label className="may_form_button">
+            <button 
+                type={["submit", "reset"].indexOf(this.props.type) > -1 && this.props.type || "button"}
+                className={this.props.className + (this.props.icon ? " icon" : "")}
+                onClick={this.onClick}
+                disabled={this.props.disabled}
+            >
+                {this.props.icon ? <font className={"fa fa-" + this.props.icon}/> : null}
+                {this.props.text}
+            </button>
+            <span className="cb"/>
+        </label>
     }
 
     onClick(e){
@@ -22,11 +28,18 @@ class Button extends React.Component{
 }
 
 Button.defaultProps = {
-    className: "may_form_button",
+    className: "",
     type: "submit", // submit reset button
-    value: undefined,
+    text: undefined,
+
+    disabled: false,
+    icon: undefined,
 
     fnClick: undefined
-}
+};
+
+["Info", "Warning", "Error", "Elter"].forEach(va => {
+    Button[va] = props => <Button className={va.toLowerCase()} {...props}/>;
+});
 
 export default Button;

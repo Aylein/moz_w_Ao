@@ -12,15 +12,16 @@ class Input extends React.Component{
     }
 
     render(){
-        console.log(this.isControlled(), this.showClose(), this.state.defaultValue, this.state.defaultValue && this.state.defaultValue.length > 0)
-        return <label className={this.props.className + (this.props.disabled ? " disabled" : "")}>
+        return <label className={"may_form_text" + (this.props.disabled ? " disabled" : "")}>
             <input 
+                className={this.props.className}
                 type={this.props.type}
                 {...this.isControlled() ? {value: this.props.value} : {defaultValue: this.state.defaultValue}}
                 disabled={this.props.disabled}
                 onChange={this.onChange}
             />
             <font className={"fa fa-close " + (this.showClose() ? " db" : " dn")} onClick={this.onClose}/>
+            <span className="cb"/>
         </label>;
     }
 
@@ -29,7 +30,7 @@ class Input extends React.Component{
     }
 
     showClose(){
-        return this.props.disabled ? false : (this.isControlled() ? this.props.value && this.props.value.length > 0 : this.state.defaultValue && this.state.defaultValue.length > 0);
+        return this.props.disabled || !this.isControlled() ? false : this.props.value && this.props.value.length > 0;
     }
 
     onChange(e){
@@ -46,7 +47,7 @@ class Input extends React.Component{
 }
 
 Input.defaultProps = {
-    className: "may_form_text",
+    className: "",
     name: "",
     value: undefined,
     defaultValue: undefined,

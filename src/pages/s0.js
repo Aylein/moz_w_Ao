@@ -1,6 +1,8 @@
 import React from "react";
 import {Form} from "../plugs";
 
+console.log(Form.Button.Info);
+
 import "../styles/index.less";
 
 class Index extends React.Component{
@@ -37,7 +39,7 @@ class Index extends React.Component{
                     {value: 2, text: "2", disabled: true},
                     {value: 3, text: "3"}
             ]},
-            text: {name: "va7", type: "text", defaultValue: "dsfsdf"}
+            text: {name: "va7", type: "text", value: "dsfsdf"}
         }
         this.onFormChange = this.onFormChange.bind(this);
         this.p = Object.assign(this.state);
@@ -46,6 +48,10 @@ class Index extends React.Component{
     render(){
         return <div>
             <img src={require("../img/master.jpg")}/>
+            <div>
+                <label className="va_a"><input type="text" value="Primary"/></label>
+                <label className="va_b"><button>阿门</button></label>
+            </div>
             <h1><font className="fa fa-times"/>this is Index</h1>
             <Form.CheckBox.Item {...this.state.checkbox}/>
             <Form.CheckBox fnClick={e => {
@@ -55,17 +61,16 @@ class Index extends React.Component{
             <Form.Radio fnClick={e => {
                 this.setState({radioList: Object.assign({}, this.state.radioList, {value: e.value})});
             }} {...this.state.radioList}/>
-            <Form.Text {...this.state.text} fnChange={e => {
-                console.log(e);
+            <Form.Text className="w1000" {...this.state.text} fnChange={e => {
                 this.setState({text: Object.assign({}, this.state.text, {value: e.value})});
             }}/>
-            <Form.Button value="OK"/>
+            <Form.Button.Info type="button" text="啊啊啊" icon="plus" fnClick={() => { alert(4); }}/>
             <Form/>
             <Form.Form fnSubmit={() => { alert(2); }}>
                 {this.state.values && this.state.values.length > 0 ? this.state.values.map((va, i) =>
                     <Form.Input key={i} fnChange={this.onFormChange} {...va}/>
                 ) : null}
-                <Form.Button type="submit" value="OK" fnClick={() => { alert(1); }}/>
+                <Form.Button type="submit" text="OK" fnClick={() => { alert(1); }}/>
             </Form.Form>
         </div>;
     }
