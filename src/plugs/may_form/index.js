@@ -5,6 +5,7 @@ import Button from "./button";
 import CheckBox from "./checkbox";
 import Radio from "./radio";
 import Text from "./text";
+import Select from "./select";
 
 class Index extends React.Component{
     render(){
@@ -20,5 +21,6 @@ Index.Button = Button;
 Index.CheckBox = CheckBox;
 Index.Radio = Radio;
 Index.Text = Text;
+Index.Select = Select;
 
 export default Index;

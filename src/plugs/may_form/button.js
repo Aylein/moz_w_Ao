@@ -18,7 +18,6 @@ class Button extends React.Component{
                 {this.props.icon ? <font className={"fa fa-" + this.props.icon}/> : null}
                 {this.props.text}
             </button>
-            <span className="cb"/>
         </label>
     }
 
@@ -38,7 +37,7 @@ Button.defaultProps = {
     fnClick: undefined
 };
 
-["Info", "Warning", "Error", "Elter"].forEach(va => {
+["Info", "Warning", "Error", "Alter"].forEach(va => {
     Button[va] = props => <Button className={va.toLowerCase()} {...props}/>;
 });
 

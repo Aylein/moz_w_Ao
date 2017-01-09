@@ -1,12 +1,14 @@
 @import "../../../styles/index";
-@font_color: #0093ff;
+@font_color: #5e87b0;
+@chose_color: #d4e5fb;
 @font_color_disabled: @disabled_color;
 @border_color: #a9a9a9;
-@border_radius: 0.2rem;
+@border_radius: 0.3rem;
 @input_height: 2.8rem;
 .may_form_checkbox, .may_form_radio {
     cursor: pointer;
     padding: 0 0.3rem;
+    display: inline-block;
     .fa {
         color: @font_color;
         font-size: 1.2rem;
@@ -22,15 +24,58 @@
         color: @border_color;
     }
 }
+.may_form_select {
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+    span {
+        height: @input_height;
+        line-height: @input_height - 0.1;
+        border: 0.1rem solid @border_color;
+        border-radius: @border_radius;
+        padding: 0 2rem 0 0.5rem;
+        cursor: pointer;
+        float: left;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+    span.disabled {
+        background-color: @font_color_disabled;
+        cursor: default;
+    }
+    .fa {
+        position: absolute;
+        right: 0.7rem;
+        top: 32%;
+        font-size: 1rem;
+        cursor: pointer;
+        color: @border_color;
+    }
+    ul {
+        position: absolute;
+        top: 110%;
+        z-index: 5;
+        border: 0.1rem solid @border_color;
+        border-radius: @border_radius;
+        padding: 0.4rem 0.5rem;
+        background: #ffffff;
+        min-width: 100%;
+        li {
+            padding: 0.2rem 0;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+        li.selected, li:hover {
+            background: @chose_color;
+        }
+    }
+}
 .may_form_text {
     position: relative;
+    display: inline-block;
+    vertical-align: middle;
     input, input:focus, input:disabled {
-
         height: @input_height;
-        // line-height: @input_height;
-        // font-size: 1.3rem;
-        // vertical-align: baseline;
-
         padding: 0 2rem 0 0.5rem;
         border: 0.1rem solid @border_color;
         border-radius: @border_radius;
@@ -42,77 +87,71 @@
     .fa {
         position: absolute;
         right: 0.7rem;
-        top: 0.7rem;
+        top: 32%;
         font-size: 1rem;
         cursor: pointer;
         color: @border_color;
     }
 }
-.may_form_text:after {
-    display: block;
-    clear: both;
-}
 .may_form_button {
     position: relative;
+    display: inline-block;
+    vertical-align: middle;
     button {
         height: @input_height;
-        // line-height: @input_height;
-        // font-size: 1.3rem;
-        // vertical-align: baseline;
-
         border: 0.1rem solid @border_color;
         border-radius: @border_radius;
         padding: 0 1.5rem; 
         cursor: pointer;
         float: left;
     }
+    button.icon {
+        padding: 0 1.5rem 0 2.5rem;
+    }
+    button:hover {
+        opacity: 0.9;
+    }
+    button:active {
+        opacity: 0.8;
+    }
+    button:visited {
+        opacity: 1;
+    }
+    button:disabled {
+        opacity: 0.4;
+        cursor: default;
+    }
+    button.info {
+        background-color: #5e87b0; 
+        color: #ffffff;
+        border-color: #08529c;
+    }
+    button.warning {
+        background-color: #ff9800; 
+        color: #ffffff;
+        border-color: #d88100;
+    }
+    button.error {
+        background-color: #f44336; 
+        color: #ffffff;
+        border-color: #ea1000;
+    }
+    button.alter {
+        background-color: #484848; 
+        color: #ffffff;
+        border-color: #000000;
+    }
     .fa {
         position: absolute;
-        left: 1.1rem;
-        top: 0.8rem;
+        left: 15%;
+        top: 32%;
         display: block;
         width: 1rem;
         height: 1rem;
         font-size: 1rem;
     }
 }
-.may_form_button:after {
-    display: block;
+.may_form_select:after, .may_form_text:after, .may_form_button:after {
     clear: both;
+    display: block;
 }
-// .may_form_button.icon {
-//     padding: 0 1.5rem 0 2.5rem;
-// }
-// .may_form_button:hover {
-//     opacity: 0.9;
-// }
-// .may_form_button:active {
-//     opacity: 0.8;
-// }
-// .may_form_button:visited {
-//     opacity: 1;
-// }
-// .may_form_button:disabled {
-//     opacity: 0.4;
-//     cursor: default;
-// }
-// .may_form_button.info {
-//     background-color: #5e87b0; 
-//     color: #ffffff;
-//     border-color: #5e87b0;
-// }
-// .may_form_button.warning {
-//     background-color: #5e87b0; 
-//     color: #ffffff;
-//     border-color: #5e87b0;
-// }
-// .may_form_button.error {
-//     background-color: #5e87b0; 
-//     color: #ffffff;
-//     border-color: #5e87b0;
-// }
-// .may_form_button.alter {
-//     background-color: #5e87b0; 
-//     color: #ffffff;
-//     border-color: #5e87b0;
-// }

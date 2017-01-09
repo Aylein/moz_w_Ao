@@ -21,7 +21,6 @@ class Input extends React.Component{
                 onChange={this.onChange}
             />
             <font className={"fa fa-close " + (this.showClose() ? " db" : " dn")} onClick={this.onClose}/>
-            <span className="cb"/>
         </label>;
     }
 
