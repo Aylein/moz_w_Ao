@@ -6,7 +6,7 @@ html, body {width: 100%; font-size: 62.5%; font-family: "Microsoft Yahei", sans-
 *:disabled {background-color: @disabled_color}
 
 .w(@count) when (@count > 0){
-    .w((@count - 0.5));
+    .w((@count - 1));
     .w@{count} {width: @count * 1rem;}
 }
 .w(100);

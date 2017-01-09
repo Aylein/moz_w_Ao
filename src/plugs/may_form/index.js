@@ -9,11 +9,18 @@ import Select from "./select";
 
 class Index extends React.Component{
     render(){
-        return <form>
-            123
-        </form>
+        return <Form>
+            
+        </Form>
     }
 }
+
+Index.defaultProps = {
+    fnSubmit: null,
+    fnReset: null,
+    list: [],
+    buttons: []
+};
 
 Index.Form = Form;
 Index.Input = Input;

@@ -8,7 +8,7 @@ class Form extends React.Component{
     }
 
     render(){
-        return <form onSubmit={this.onSubmit} onReset={this.onReset}>
+        return <form className={"may_form_radio " + this.props.className} onSubmit={this.onSubmit} onReset={this.onReset}>
             {this.props.children}
         </form>
     }
@@ -25,6 +25,7 @@ class Form extends React.Component{
 }
 
 Form.defaultProps = {
+    className: "",
     fnSubmit: undefined,
     fnReset: undefined
 }
