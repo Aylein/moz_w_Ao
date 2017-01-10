@@ -6,11 +6,12 @@ import CheckBox from "./checkbox";
 import Radio from "./radio";
 import Text from "./text";
 import Select from "./select";
+import Item from "./item";
 
 class Index extends React.Component{
     render(){
         return <Form>
-            
+
         </Form>
     }
 }
@@ -22,12 +23,13 @@ Index.defaultProps = {
     buttons: []
 };
 
-Index.Form = Form;
-Index.Input = Input;
-Index.Button = Button;
-Index.CheckBox = CheckBox;
-Index.Radio = Radio;
-Index.Text = Text;
-Index.Select = Select;
+Form.miniForm = Index;
+Form.Input = Input;
+Form.Button = Button;
+Form.CheckBox = CheckBox;
+Form.Radio = Radio;
+Form.Text = Text;
+Form.Select = Select;
+Form.Item = Item;
 
-export default Index;
+export default Form;

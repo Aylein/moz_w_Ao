@@ -11,7 +11,7 @@ class CheckBoxList extends React.Component{
     }
 
     render(){
-        return <label className={this.props.className}>
+        return <label className={"may_form_checkbox_list " + this.props.className}>
             {this.props.list.map((va, i) => 
                 <CheckBox 
                     key={i} 

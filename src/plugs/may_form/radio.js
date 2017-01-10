@@ -11,7 +11,7 @@ class RadioList extends React.Component{
     }
 
     render(){
-        return <label className={this.props.className}>
+        return <label className={"may_form_radio_list " + this.props.className}>
             {this.props.list.map((va, i) => 
                 <Radio 
                     key={i} 

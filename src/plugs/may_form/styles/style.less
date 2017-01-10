@@ -1,18 +1,54 @@
 @import "../../../styles/index";
 @font_color: #5e87b0;
+@font_error_color: #0000ff;
 @chose_color: #d4e5fb;
 @font_color_disabled: @disabled_color;
 @border_color: #a9a9a9;
 @border_radius: 0.3rem;
 @input_height: 2.8rem;
+
+.may_form_item {
+    margin: 0.2rem 0;
+    height: 4.3rem;
+    .may_form_item_title {
+        float: left;
+        width: 10rem;
+        text-align: right;
+        line-height: @input_height;
+        height: @input_height;
+    }
+    .may_form_input {
+        float: left;
+        height: @input_height;
+    }
+    .may_form_item_validblank, .may_form_validres {
+        float: left;
+        height: 1.4rem;
+        line-height: 1.4rem;
+        font-size: 1.4rem;
+    }
+    .may_form_item_validblank {
+        width: 10rem;
+        text-align: right;
+    }
+    .may_form_validres.unvalid { color: #ea1000; }
+    .may_form_validres.valid { color: @font_color; }
+    .cb {
+        clear: both;
+        display: block;
+    }
+}
+
 .may_form_checkbox, .may_form_radio {
     cursor: pointer;
-    padding: 0 0.3rem;
+    padding: 0 0.6rem 0 0;
     display: inline-block;
+    line-height: @input_height;
+    height: @input_height;
     .fa {
         color: @font_color;
         font-size: 1.2rem;
-        padding: 0 0.3rem;
+        padding: 0 0.3rem 0 0;
     }
     .fa.disabled {
         color: @border_color;
@@ -61,7 +97,9 @@
         background: #ffffff;
         min-width: 100%;
         li {
-            padding: 0.2rem 0;
+            height: @input_height - 1;
+            line-height: @input_height - 1;
+            margin: 0 0 0.2rem 0;
             cursor: pointer;
             white-space: nowrap;
         }
@@ -151,7 +189,7 @@
         font-size: 1rem;
     }
 }
-.may_form_select:after, .may_form_text:after, .may_form_button:after {
+.may_form_item, .may_form_select:after, .may_form_text:after, .may_form_button:after {
     clear: both;
     display: block;
 }
