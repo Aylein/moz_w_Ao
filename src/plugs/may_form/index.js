@@ -7,6 +7,7 @@ import Radio from "./radio";
 import Text from "./text";
 import Select from "./select";
 import Item from "./item";
+import Textarea from "./textarea";
 
 class Index extends React.Component{
     render(){
@@ -30,6 +31,7 @@ Form.CheckBox = CheckBox;
 Form.Radio = Radio;
 Form.Text = Text;
 Form.Select = Select;
+Form.Textarea = Textarea;
 Form.Item = Item;
 
 export default Form;

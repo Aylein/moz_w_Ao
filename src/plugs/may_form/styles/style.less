@@ -1,15 +1,15 @@
 @import "../../../styles/index";
-@font_color: #5e87b0;
+@font_color: @main_font_color;
 @font_error_color: #0000ff;
 @chose_color: #d4e5fb;
 @font_color_disabled: @disabled_color;
 @border_color: #a9a9a9;
-@border_radius: 0.3rem;
+@border_radius: 0.15rem;
 @input_height: 2.8rem;
 
 .may_form_item {
     margin: 0.2rem 0;
-    height: 4.3rem;
+    //height: 4.3rem;
     .may_form_item_title {
         float: left;
         width: 10rem;
@@ -19,7 +19,7 @@
     }
     .may_form_input {
         float: left;
-        height: @input_height;
+        //height: @input_height;
     }
     .may_form_item_validblank, .may_form_validres {
         float: left;
@@ -60,10 +60,22 @@
         color: @border_color;
     }
 }
+.may_form_textarea {
+    display: inline-block;
+    vertical-align: middle;
+    textarea {
+        resize: none;
+        padding: 0.2rem 0.5rem;
+        border: 0.1rem solid #a9a9a9;
+        border-radius: 0.1rem;
+        float: left;
+    }
+}
 .may_form_select {
     position: relative;
     display: inline-block;
     vertical-align: middle;
+    background: #ffffff;
     span {
         height: @input_height;
         line-height: @input_height - 0.1;
@@ -189,7 +201,7 @@
         font-size: 1rem;
     }
 }
-.may_form_item, .may_form_select:after, .may_form_text:after, .may_form_button:after {
+.may_form_textarea::after, .may_form_item::after, .may_form_select::after, .may_form_text::after, .may_form_button::after {
     clear: both;
     display: block;
 }

@@ -38,7 +38,7 @@ Button.defaultProps = {
 };
 
 ["Info", "Warning", "Error", "Alter"].forEach(va => {
-    Button[va] = props => <Button className={va.toLowerCase()} {...props}/>;
+    Button[va] = props => <Button {...props} className={va.toLowerCase() + " " + props.className}/>;
 });
 
 export default Button;

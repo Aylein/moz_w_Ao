@@ -6,6 +6,7 @@ import CheckBox from "./checkbox";
 import Radio from "./radio";
 import Text from "./text";
 import Select from "./select";
+import Textarea from "./textarea";
 
 class Item extends React.Component{
     constructor(){
@@ -16,8 +17,8 @@ class Item extends React.Component{
 
     render(){
         return <div className="may_form_item">
-            <label className="may_form_item_title">{this.props.title}：</label>
-            <label className="may_form_input">{this.makeRender(this.props.input)}</label>
+            <label className="may_form_item_title">{this.props.title ? this.props.title + "：" : ""}</label>
+            <span className="may_form_input">{this.props.render && typeof this.props.render == "function" ? this.props.render() : this.makeRender(this.props.input)}</span>
             <label className="cb"/>
             <label className="may_form_item_validblank"></label>
             <label className={"may_form_validres " + (this.props.validRes ? "valid" : "unvalid")}>{this.props.validRes ? this.props.msg : this.props.validMsg}</label>
@@ -30,6 +31,7 @@ class Item extends React.Component{
             case "checkbox": return <CheckBox {...props} fnClick={this.onChange}/>;
             case "radio": return <Radio {...props} fnClick={this.onChange}/>;
             case "select": return <Select {...props} fnChange={this.onChange}/>;
+            case "textarea": return <Textarea {...props} fnChange={this.onChange}/>
             case "text":
             default: return <Text {...props} fnChange={this.onChange}/>;
         }
@@ -46,7 +48,31 @@ Item.defaultProps = {
     input: null,
     msg: "",
     validRes: true,
-    validMsg: ""
+    validMsg: "",
+
+    render: null
 };
+
+class T extends React.Component{
+    render(){
+        return <div className="may_form_item">
+            <label className="may_form_item_title">{this.props.title ? this.props.title + "：" : ""}</label>
+            <span className="may_form_input">{this.props.children}</span>
+            <label className="cb"/>
+            <label className="may_form_item_validblank"></label>
+            <label className={"may_form_validres " + (this.props.validRes ? "valid" : "unvalid")}>{this.props.validRes ? this.props.msg : this.props.validMsg}</label>
+            <label className="cb"/>
+        </div>;
+    }
+}
+
+T.defaultProps = {
+    title: "",
+    msg: "",
+    validRes: true,
+    validMsg: "",
+};
+
+Item.T = T;
 
 export default Item;
