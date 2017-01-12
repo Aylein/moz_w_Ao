@@ -8,7 +8,7 @@ class Form extends React.Component{
     }
 
     render(){
-        return <form className={"may_form_form " + this.props.className} onSubmit={this.onSubmit} onReset={this.onReset}>
+        return <form className={"may_form_form" + (this.props.className ? " " + this.props.className : "")} onSubmit={this.onSubmit} onReset={this.onReset}>
             {this.props.children}
         </form>
     }

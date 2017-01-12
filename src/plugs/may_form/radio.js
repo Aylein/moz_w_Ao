@@ -11,7 +11,7 @@ class RadioList extends React.Component{
     }
 
     render(){
-        return <label className={"may_form_radio_list " + this.props.className}>
+        return <label className={"may_form_radio_list" + (this.props.className ? " " + this.props.className : "")}>
             {this.props.list.map((va, i) => 
                 <Radio 
                     key={i} 
@@ -70,7 +70,7 @@ class Radio extends React.Component{
     render(){
         let checked = this.isChecked();
         return <label className={"may_form_radio" + (this.props.disabled ? " disabled" : "")} onClick={this.onClick}>
-            <font className={"fa " + (checked ? "fa-dot-circle-o" : "fa-circle")}/>{this.props.text}
+            <font className={"fa" + (checked ? " fa-dot-circle-o" : " fa-circle")}/>{this.props.text}
         </label>;
     }
 

@@ -16,16 +16,27 @@
         text-align: right;
         line-height: @input_height;
         height: @input_height;
+        .may_form_item_title_required {
+            color: #ea1000;
+            font-family: SimSun;
+            display: inline-block;
+            margin-right: 0.2rem;
+        }
     }
     .may_form_input {
         float: left;
         //height: @input_height;
     }
+    .may_form_input.unvalid {
+        .may_form_text input { border-color: #ea1000; }
+        .may_form_select span { border-color: #ea1000; }
+        .may_form_textarea textarea { border-color: #ea1000; }
+    }
     .may_form_item_validblank, .may_form_validres {
         float: left;
         height: 1.4rem;
         line-height: 1.4rem;
-        font-size: 1.4rem;
+        //font-size: 1.4rem;
     }
     .may_form_item_validblank {
         width: 10rem;
@@ -33,6 +44,7 @@
     }
     .may_form_validres.unvalid { color: #ea1000; }
     .may_form_validres.valid { color: @font_color; }
+    .may_form_validres.validating { color: #ff9800; }
     .cb {
         clear: both;
         display: block;
@@ -66,7 +78,7 @@
     textarea {
         resize: none;
         padding: 0.2rem 0.5rem;
-        border: 0.1rem solid #a9a9a9;
+        border: 0.1rem solid @border_color;
         border-radius: 0.1rem;
         float: left;
     }
@@ -201,7 +213,8 @@
         font-size: 1rem;
     }
 }
-.may_form_textarea::after, .may_form_item::after, .may_form_select::after, .may_form_text::after, .may_form_button::after {
+.may_form_textarea:after, .may_form_item:after, .may_form_select:after, .may_form_text:after, .may_form_button:after {
+    content: "";
     clear: both;
     display: block;
 }

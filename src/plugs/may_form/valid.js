@@ -12,18 +12,18 @@ const floatRegExp = num => new window.RegExp("\\.\\d{" + num.toString() + "}");
  * 验证类 基类 用于提供通用的验证方法
  */
 export default class FormValid{
-    valid(validation, value){
-        value = this.trim(value);
-        if(typeof validation == "function") return validation(value);
+    valid(validation, obj){
+        let value = this.trim(obj.value);
+        if(typeof validation == "function") return validation(va);
         let len = value.length;
         if(Array.isArray(validation)){
             for(let i = 0, z = validation.length; i < z; i++){
                 let va = Object.assign({}, validObject, validation[i]), res = va.type !== undefined && this[va.type] !== undefined ? this[va.type](value, va.valid, va.op) : true;
-                if(!res) return {res: false, value: value, msg: va.msg};
-                if(va.fn && typeof va.fn == "function" && (res = va.fn(value)) && !res.res) return res;
+                if(!res) return Object.assign({}, obj, {res: {validRes: false, validMsg: va.msg}});
+                if(va.fn && typeof va.fn == "function" && (res = va.fn(obj)) && !res.res){ console.log(res); return Object.assign({}, obj, {res: res}); }
             }
         }
-        return {res: true, value: value, msg: ""};
+        return Object.assign({}, obj, {res: {validRes: true, validMsg: ""}});
     }
     charLength(val, typeLen = 3){
         var l = 0; 

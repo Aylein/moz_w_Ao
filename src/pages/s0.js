@@ -2,28 +2,47 @@ import React from "react";
 import {Form} from "../plugs";
 
 import "../styles/index.less";
+const validate = new Form.Valid();
 
 class Index extends React.Component{
     constructor(){
         super();
         this.state = {
             columns: {
-                va0: {type: "text", title: "va0", input: {className: "w18", value: "", name: "va0"}, msg: "va0"},
+                va0: {type: "text", title: "va0", input: {className: "w18", value: "", name: "va0"}, validation: [
+                    {type: "notEmpty", msg: "请填写v0"}
+                ], msg: "va0", required: true},
                 va1: {type: "select", title: "va1", input: {className: "w18", value: "", name: "va1", list: [
                     {value: 1, text: "1"},
                     {value: 2, text: "2"},
                     {value: 3, text: "3"}
-                ]}, msg: "va1"},
+                ]}, validation: [
+                    {type: "notEmpty", msg: "请选择va1"}
+                ], msg: "va1", required: true},
                 va2: {type: "radio", title: "va2", input: {value: "", name: "va2", list: [
                     {value: 1, text: "1"},
                     {value: 2, text: "2"},
                     {value: 3, text: "3"}
-                ]}, msg: "va2"},
+                ]}, validation: [
+                    {fn: async (va) => {
+                        console.log(va);
+                        let res = {validRes: true, validMsg: ""};
+                        // await new Promise(resolve => {
+                        //     setTimeout(() => {
+                        //         resolve({validRes: false, validMsg: "something wrong"});
+                        //     }, 4000);
+                        // }).then((json) => { console.log(res, json); });
+                        return res;
+                    }},
+                    {fn: () => { console.log(2); return {validRes: true, validMsg: ""}; }}
+                ], msg: "va2"},
                 va3: {type: "checkbox", title: "va3", input: {value: [], name: "va3", list: [
                     {value: 1, text: "1"},
                     {value: 2, text: "2"},
                     {value: 3, text: "3"}
-                ]}, msg: "va3"},
+                ]}, validation: [
+                    {type: "notEmpty", msg: "请选择va3"}
+                ], msg: "va3", required: true},
                 va4: {type: "textarea", title: "va4", input: {className: "w25", value: "", name: "va4"}, msg: "va4"}
             },
             selectedId: ""
@@ -38,6 +57,9 @@ class Index extends React.Component{
         ];
 
         this.onChang = this.onChang.bind(this);
+        this.onValid = this.onValid.bind(this);
+        this.onSubmit = this.onSubmit.bind(this);
+        this.onReset = this.onReset.bind(this);
         this.onUpdate = this.onUpdate.bind(this);
         this.makeForm = this.makeForm.bind(this);
     }
@@ -45,18 +67,12 @@ class Index extends React.Component{
     render(){
         let comp = [];
         for(let key in  this.state.columns){
-            comp.push(<Form.Item key={key} {...this.state.columns[key]} fnChange={this.onChang}/>)
+            comp.push(<Form.Item key={key} {...this.state.columns[key]} fnChange={this.onChang} fnValid={this.onValid}/>)
         }
         return <div>
             <Form 
-                fnSubmit={() => { 
-                    let obj = {};
-                    for(let field in this.state.columns){
-                        obj[field] = this.state.columns[field].input.value;
-                    }
-                    console.log(obj);
-                }} 
-                fnReset={() => { this.onUpdate(this.state.selectedId); }}
+                fnSubmit={this.onSubmit} 
+                fnReset={this.onReset}
             >
                 {comp}
                 <Form.Item.T>
@@ -79,8 +95,52 @@ class Index extends React.Component{
 
     onChang(va){
         let obj = {}, input = Object.assign({}, this.state.columns[va.name].input, {value: va.value});
-        obj[va.name] = Object.assign({}, this.state.columns[va.name], {input: input});
+        obj[va.name] = Object.assign({}, this.state.columns[va.name], {input: input}, va.res ? va.res : {});
         this.setState({columns: Object.assign({}, this.state.columns, obj)});
+    }
+
+    onValid(va){
+        let obj = {};
+        obj[va.name] = Object.assign({}, this.state.columns[va.name], va.res);
+        this.setState({columns: Object.assign({}, this.state.columns, obj)});
+    }
+
+    onFormValid(){
+        let res = {};
+        for(let field in this.state.columns){
+            let o = this.state.columns[field];
+            if(o.validation) this.state.columns[field] = Object.assign({}, o, validate.valid(o.validation, {name: field, value: o.input.value}).res);
+        }
+        this.setState({columns: this.state.columns});
+    }
+
+    getValidFormValue(){
+        let res = {};
+        for(let field in this.state.columns){
+            let o = this.state.columns[field];
+            res[field] = {name: o.input.name, value: o.input.value, validRes: o.validRes}
+        }
+        return res;
+    }
+
+    checkValid(obj){
+        obj = obj || this.getValidFormValue();
+        let res = true;
+        for(let field in obj){
+            let o = obj[field];
+            if(o.validRes === "validating") return o.validRes;
+            res = !res ? res : (o.validRes === false ? o.validRes : true);
+        }
+        return res;
+    }
+
+    onSubmit(){
+        this.onFormValid();
+        console.log(this.checkValid())
+    }
+
+    onReset(){
+        this.onUpdate(this.state.selectedId);
     }
 
     onUpdate(id){
@@ -93,7 +153,7 @@ class Index extends React.Component{
     makeForm(va){
         for(let field in this.state.columns){
             let input = Object.assign({}, this.state.columns[field].input, {value: va && va[field] ? va[field] : ""});
-            let obj = Object.assign({}, this.state.columns[field], {input: input});
+            let obj = Object.assign({}, this.state.columns[field], {input: input}, {validRes: true, validMsg: ""});
             this.state.columns[field] = Object.assign({}, this.state.columns[field], obj);
         }
         this.setState({columns: this.state.columns});

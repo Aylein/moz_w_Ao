@@ -11,7 +11,7 @@ class CheckBoxList extends React.Component{
     }
 
     render(){
-        return <label className={"may_form_checkbox_list " + this.props.className}>
+        return <label className={"may_form_checkbox_list" + (this.props.className ? " " + this.props.className : "")}>
             {this.props.list.map((va, i) => 
                 <CheckBox 
                     key={i} 
@@ -66,7 +66,7 @@ class CheckBox extends React.Component{
     render(){
         let checked = this.isChecked();
         return <label className={"may_form_checkbox" + (this.props.disabled ? " disabled" : "")} onClick={this.onClick}>
-            <font className={"fa " + (checked ? "fa-check-square" : "fa-square")}/>{this.props.text}
+            <font className={"fa" + (checked ? " fa-check-square" : " fa-square")}/>{this.props.text}
         </label>;
     }
 

@@ -5,8 +5,6 @@ var es3ifyPlugin = require("es3ify-webpack-plugin");
 var extractTextPlugin = require("extract-text-webpack-plugin");
 var copyWebpackPlugin = require("copy-webpack-plugin");
 
-;
-
 module.exports = {
     devtool: "cheap-module-source-map",
     entry: {
@@ -25,7 +23,7 @@ module.exports = {
                 NODE_ENV: JSON.stringify("production")
             }
         }),
-        new es3ifyPlugin(), //修复 default 在 ie8 的兼容问题 //插件有错需要修改
+        //new es3ifyPlugin(), //修复 default 在 ie8 的兼容问题 //插件有错需要修改
         new webpack.optimize.OccurenceOrderPlugin(),
         new webpack.optimize.CommonsChunkPlugin({name: ["es6", "react"], minChunks: Infinity}),
         new webpack.DefinePlugin({"process.env": {"NODE_ENV": "production"}}),
@@ -41,7 +39,7 @@ module.exports = {
                 loader: "babel-loader", 
                 exclude: /node_modules/, 
                 query: {
-                    presets: [["es2015", {"loose": true}], "stage-0", "react"], //jsx es5 loader //loose 用于解决继承类 state props 丢失的问题
+                    presets: [["es2015", {"loose": true}], "stage-0", "react"], //jsx es6 loader //loose 用于解决继承类 state props 丢失的问题
                     plugins: [
                         "transform-runtime",
                         "transform-object-assign", //Object.assign 支持
