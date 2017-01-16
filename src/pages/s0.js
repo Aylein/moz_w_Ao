@@ -24,17 +24,14 @@ class Index extends React.Component{
                     {value: 2, text: "2"},
                     {value: 3, text: "3"}
                 ]}, validation: [
-                    {fn: async (va) => {
-                        console.log(va);
-                        let res = {validRes: true, validMsg: ""};
-                        // await new Promise(resolve => {
-                        //     setTimeout(() => {
-                        //         resolve({validRes: false, validMsg: "something wrong"});
-                        //     }, 4000);
-                        // }).then((json) => { console.log(res, json); });
+                    {type: "notEmpty", msg: "请选择va2"},
+                    {fn: va => {
+                        let res = {validRes: "validating", validMsg: ""};
+                            setTimeout(() => {
+                                this.onValid(Object.assign({}, va, {res: {validRes: true, validMsg: "something wrong"}}));
+                            }, 4000);
                         return res;
-                    }},
-                    {fn: () => { console.log(2); return {validRes: true, validMsg: ""}; }}
+                    }}
                 ], msg: "va2"},
                 va3: {type: "checkbox", title: "va3", input: {value: [], name: "va3", list: [
                     {value: 1, text: "1"},
@@ -58,7 +55,9 @@ class Index extends React.Component{
 
         this.onChang = this.onChang.bind(this);
         this.onValid = this.onValid.bind(this);
+        this.onAsyncSubmit = this.onAsyncSubmit.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
+        this.onSend = this.onSend.bind(this);
         this.onReset = this.onReset.bind(this);
         this.onUpdate = this.onUpdate.bind(this);
         this.makeForm = this.makeForm.bind(this);
@@ -94,6 +93,7 @@ class Index extends React.Component{
     }
 
     onChang(va){
+        if(this.validation_res) this.validation_res = null;
         let obj = {}, input = Object.assign({}, this.state.columns[va.name].input, {value: va.value});
         obj[va.name] = Object.assign({}, this.state.columns[va.name], {input: input}, va.res ? va.res : {});
         this.setState({columns: Object.assign({}, this.state.columns, obj)});
@@ -103,13 +103,19 @@ class Index extends React.Component{
         let obj = {};
         obj[va.name] = Object.assign({}, this.state.columns[va.name], va.res);
         this.setState({columns: Object.assign({}, this.state.columns, obj)});
+        if(this.validation_res && this.validation_res[va.name] && this.validation_res[va.name].validRes !== true && va.res.validRes == true)
+            this.onAsyncSubmit(va);
     }
 
     onFormValid(){
-        let res = {};
+        this.validation_res = {};
         for(let field in this.state.columns){
             let o = this.state.columns[field];
-            if(o.validation) this.state.columns[field] = Object.assign({}, o, validate.valid(o.validation, {name: field, value: o.input.value}).res);
+            if(o.validation){
+                let res = validate.valid(o.validation, {name: field, value: o.input.value});
+                this.validation_res[field] = res.res;
+                this.state.columns[field] = Object.assign({}, o, res.res);
+            }
         }
         this.setState({columns: this.state.columns});
     }
@@ -134,9 +140,19 @@ class Index extends React.Component{
         return res;
     }
 
+    onAsyncSubmit(va){
+        if(this.validation_res && this.validation_res[va.name]) this.validation_res[va.name] = va.res;
+        if(this.checkValid() === true) this.onSend();
+    }
+
     onSubmit(){
         this.onFormValid();
-        console.log(this.checkValid())
+        if(this.checkValid() === true) this.onSend();
+    }
+
+    onSend(){
+        console.log(this.getValidFormValue());
+        this.validation_res = null;
     }
 
     onReset(){

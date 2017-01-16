@@ -32,7 +32,7 @@ class Item extends React.Component{
             <label className="cb"/>
             <label className="may_form_item_validblank"></label>
             <label className={"may_form_validres" + (this.props.validRes === true ? " valid" : (this.props.validRes ? " validating" : " unvalid"))}>
-                {this.props.validRes == "validating" ? "验证中" : this.props.validMsg || this.props.msg}
+                {this.props.validRes == "validating" ? "验证中" : this.props.validRes ? this.props.msg : this.props.validMsg}
             </label>
             <label className="cb"/>
         </div>;
@@ -87,7 +87,9 @@ class T extends React.Component{
             <span className="may_form_input">{this.props.children}</span>
             <label className="cb"/>
             <label className="may_form_item_validblank"></label>
-            <label className={"may_form_validres " + (this.props.validRes ? "valid" : "unvalid")}>{this.props.validRes ? this.props.msg : this.props.validMsg}</label>
+            <label className={"may_form_validres" + (this.props.validRes === true ? " valid" : (this.props.validRes ? " validating" : " unvalid"))}>
+                {this.props.validRes == "validating" ? "验证中" : this.props.validRes ? this.props.msg : this.props.validMsg}
+            </label>
             <label className="cb"/>
         </div>;
     }
