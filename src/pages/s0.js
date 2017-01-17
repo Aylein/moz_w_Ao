@@ -25,10 +25,13 @@ class Index extends React.Component{
                     {value: 3, text: "3"}
                 ]}, validation: [
                     {type: "notEmpty", msg: "请选择va2"},
-                    {fn: va => {
+                    {fn: (va, callback) => {
                         let res = {validRes: "validating", validMsg: ""};
                             setTimeout(() => {
-                                this.onValid(Object.assign({}, va, {res: {validRes: true, validMsg: "something wrong"}}));
+                                //if(callback) 
+                                    callback({name: "va2", res: {validRes: true, validMsg: "something wrong"}});
+                                //else 
+                                    //this.onValid(Object.assign({}, va, {res: {validRes: false, validMsg: "something wrong"}}));
                             }, 4000);
                         return res;
                     }}
@@ -69,7 +72,11 @@ class Index extends React.Component{
             comp.push(<Form.Item key={key} {...this.state.columns[key]} fnChange={this.onChang} fnValid={this.onValid}/>)
         }
         return <div>
-            <Form 
+            <Form.miniForm
+                fnSubmit={(va, callback) => { callback({validRes: false, validMsg: "添加失败"}); }}
+                list={this.state.columns}
+            />
+            {/*<Form 
                 fnSubmit={this.onSubmit} 
                 fnReset={this.onReset}
             >
@@ -79,7 +86,7 @@ class Index extends React.Component{
                     <Form.Button.Info className="mr1" key={1} type="reset" text="reset"/>
                     <Form.Button.Info className="mr1" key={2} type="button" text="default" fnClick={() => { this.onUpdate(""); }}/>
                 </Form.Item.T>
-            </Form>
+            </Form>*/}
             <br />
             {this.data.map((va, i) => <div key={i}>
                 <span className="w10 dib txc">{va.va0}</span>
@@ -151,7 +158,6 @@ class Index extends React.Component{
     }
 
     onSend(){
-        console.log(this.getValidFormValue());
         this.validation_res = null;
     }
 

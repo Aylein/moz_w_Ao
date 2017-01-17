@@ -13,13 +13,13 @@ export default class FormValid{
     }
     valid(validation, obj){
         let value = this.trim(obj.value);
-        if(typeof validation == "function") return validation(va);
+        if(typeof validation == "function") return validation(va, validation.callback);
         let len = value.length;
         if(Array.isArray(validation)){
             for(let i = 0, z = validation.length; i < z; i++){
                 let va = Object.assign({}, this.validObject, validation[i]), res = va.type !== undefined && this[va.type] !== undefined ? this[va.type](value, va.valid, va.op) : true;
                 if(!res) return Object.assign({}, obj, {res: {validRes: false, validMsg: va.msg}});
-                if(va.fn && typeof va.fn == "function" && (res = va.fn(obj)) && res.validRes !== true) return Object.assign({}, obj, {res: res});
+                if(va.fn && typeof va.fn == "function" && (res = va.fn(obj, validation.callback)) && res.validRes !== true) return Object.assign({}, obj, {res: res});
             }
         }
         return Object.assign({}, obj, {res: {validRes: true, validMsg: ""}});

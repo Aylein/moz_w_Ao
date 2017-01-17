@@ -10,17 +10,140 @@ import Item from "./item";
 import Textarea from "./textarea";
 import Valid from "./valid";
 
-class Index extends React.Component{
-    render(){
-        return <Form>
+const validate = new Valid();
 
-        </Form>
+class Index extends React.Component{
+    constructor(props){
+        super(props);
+        this.state = {
+            columns: this.makeColumns(props.list || []),
+            validRes: true,
+            validMsg: ""
+        }
+        //if(Array.isArray(props.list)) this.state.columns = this.makeColumns(props);
+        this.list = props.list;
+
+        this.onChang = this.onChang.bind(this);
+        this.onValid = this.onValid.bind(this);
+        this.onValidRes = this.onValidRes.bind(this);
+        this.onAsyncSubmit = this.onAsyncSubmit.bind(this);
+        this.onSubmit = this.onSubmit.bind(this);
+        this.onSend = this.onSend.bind(this);
+        this.onReset = this.onReset.bind(this);
+        this.makeRes = this.makeRes.bind(this);
+    }
+
+    render(){
+        let comp = [], bts = [
+            <Button.Info className="mr1" key={0} type="submit" text="ok"/>,
+            <Button.Info className="mr1" key={1} type="reset" text="reset"/>
+        ];
+        for(let key in  this.state.columns){
+            comp.push(<Form.Item key={key} {...this.state.columns[key]} fnChange={this.onChang} fnValid={this.onValid}/>)
+        }
+        return <Form
+                fnSubmit={this.onSubmit} 
+                fnReset={this.onReset}
+            >
+                {comp}
+                <Item.T validRes={this.state.validRes} validMsg={this.state.validMsg}>
+                {this.props.buttons && this.props.buttons.length > 0 ? this.props.buttons.map((va, i) => 
+                    <Button.Info className="mr1" key={i} {...va}/>
+                ) : bts}
+                </Item.T>
+            </Form>;
+    }
+
+    onChang(va){
+        if(this.validation_res) this.validation_res = null;
+        let obj = {}, input = Object.assign({}, this.state.columns[va.name].input, {value: va.value});
+        obj[va.name] = Object.assign({}, this.state.columns[va.name], {input: input}, va.res ? va.res : {});
+        this.setState({columns: Object.assign({}, this.state.columns, obj)});
+    }
+
+    onValid(va){
+        let obj = {};
+        obj[va.name] = Object.assign({}, this.state.columns[va.name], va.res);
+        this.setState({columns: Object.assign({}, this.state.columns, obj)});
+        if(this.validation_res && this.validation_res[va.name] && this.validation_res[va.name].validRes !== true && va.res.validRes == true)
+            this.onAsyncSubmit(va);
+    }
+
+    onValidRes(res){
+        this.onValid(res);
+    }
+
+    onFormValid(){
+        this.validation_res = {};
+        for(let field in this.state.columns){
+            let o = this.state.columns[field];
+            if(o.validation && !o.disabled){
+                let res = validate.valid(o.validation, {name: field, value: o.input.value});
+                this.validation_res[field] = res.res;
+                this.state.columns[field] = Object.assign({}, o, res.res);
+            }
+        }
+        this.setState({columns: this.state.columns});
+    }
+
+    getValidFormValue(){
+        let res = {};
+        for(let field in this.state.columns){
+            let o = this.state.columns[field];
+            res[field] = {name: o.input.name, value: o.input.value, validRes: o.validRes}
+        }
+        return res;
+    }
+
+    checkValid(obj){
+        obj = obj || this.getValidFormValue();
+        let res = true;
+        for(let field in obj){
+            let o = obj[field];
+            if(o.validRes === "validating") return o.validRes;
+            res = !res ? res : (o.validRes === false ? o.validRes : true);
+        }
+        return res;
+    }
+
+    onAsyncSubmit(va){
+        if(this.validation_res && this.validation_res[va.name]) this.validation_res[va.name] = va.res;
+        if(this.checkValid() === true) this.onSend();
+    }
+
+    onSubmit(){
+        this.onFormValid();
+        if(this.checkValid() === true) this.onSend();
+    }
+
+    onSend(){
+        if(this.props.fnSubmit && typeof this.props.fnSubmit == "function") this.props.fnSubmit(this.getValidFormValue(), this.makeRes);
+        this.validation_res = null;
+    }
+
+    onReset(){
+        this.setState({columns: this.makeColumns(this.list)});
+    }
+
+    makeColumns(list){
+        let columns = {};
+        if(Array.isArray(list))
+            list.forEach(va => {
+                columns[va.input.name] = va;
+            });
+        else columns = list;
+        for(let field in columns) if(columns[field].validation) columns[field].validation.callback = this.onValidRes.bind(this);
+        return columns;
+    }
+
+    makeRes(res){
+        this.setState({validRes: res.validRes, validMsg: res.validMsg});
     }
 }
 
 Index.defaultProps = {
     fnSubmit: null,
-    fnReset: null,
+    fnReset: null, 
     list: [],
     buttons: []
 };
