@@ -18,7 +18,8 @@ class Index extends React.Component{
         this.state = {
             columns: this.makeColumns(props.list || []),
             validRes: true,
-            validMsg: ""
+            validMsg: "",
+            submitDisabled: false
         }
         //if(Array.isArray(props.list)) this.state.columns = this.makeColumns(props);
         this.list = props.list;
@@ -35,8 +36,8 @@ class Index extends React.Component{
 
     render(){
         let comp = [], bts = [
-            <Button.Info className="mr1" key={0} type="submit" text="ok"/>,
-            <Button.Info className="mr1" key={1} type="reset" text="reset"/>
+            <Button.Info className="mr1" key={0} type="submit" text="ok" disabled={this.state.submitDisabled}/>,
+            <Button.Alter className="mr1" key={1} type="reset" text="reset"/>
         ];
         for(let key in  this.state.columns){
             comp.push(<Form.Item key={key} {...this.state.columns[key]} fnChange={this.onChang} fnValid={this.onValid}/>)
@@ -48,7 +49,7 @@ class Index extends React.Component{
                 {comp}
                 <Item.T validRes={this.state.validRes} validMsg={this.state.validMsg}>
                 {this.props.buttons && this.props.buttons.length > 0 ? this.props.buttons.map((va, i) => 
-                    <Button.Info className="mr1" key={i} {...va}/>
+                    <Button.Info className="mr1" key={i} {...va} {...va.type == "submit" ? {disabled: this.state.submitDisabled} : {}}/>
                 ) : bts}
                 </Item.T>
             </Form>;
@@ -95,25 +96,37 @@ class Index extends React.Component{
         return res;
     }
 
-    checkValid(obj){
-        obj = obj || this.getValidFormValue();
-        let res = true;
+    checkValid(type, obj = this.getValidFormValue()){
+        let bo = type !== undefined && type !== null, res = bo ? false : true;
         for(let field in obj){
             let o = obj[field];
-            if(o.validRes === "validating") return o.validRes;
-            res = !res ? res : (o.validRes === false ? o.validRes : true);
+            if(bo){
+                if(type === o.validRes){
+                    res = true;
+                    break;
+                }
+            }
+            else{
+                if(o.validRes === "validating") return o.validRes;
+                res = !res ? res : (o.validRes === false ? o.validRes : true);
+            }
         }
         return res;
     }
 
     onAsyncSubmit(va){
         if(this.validation_res && this.validation_res[va.name]) this.validation_res[va.name] = va.res;
-        if(this.checkValid() === true) this.onSend();
+        let _res = this.checkValid(false), res = this.checkValid();
+        if(_res) this.setState({submitDisabled: false});
+        else if(res === true) this.onSend();
     }
 
     onSubmit(){
+        this.setState({validRes: true, validMsg: "", submitDisabled: true});
         this.onFormValid();
-        if(this.checkValid() === true) this.onSend();
+        let _res = this.checkValid(false), res = this.checkValid();
+        if(_res) this.setState({submitDisabled: false});
+        else if(res === true) this.onSend();
     }
 
     onSend(){
@@ -122,7 +135,7 @@ class Index extends React.Component{
     }
 
     onReset(){
-        this.setState({columns: this.makeColumns(this.list)});
+        this.setState({columns: this.makeColumns(this.list), validRes: true, validMsg: ""});
     }
 
     makeColumns(list){
@@ -132,12 +145,19 @@ class Index extends React.Component{
                 columns[va.input.name] = va;
             });
         else columns = list;
-        for(let field in columns) if(columns[field].validation) columns[field].validation.callback = this.onValidRes.bind(this);
+        for(let field in columns){
+            let va = columns[field];
+            if(va.validation){
+                va.validation.callback = this.onValidRes.bind(this);
+                va.validRes = true;
+                va.validMsg = "";
+            }
+        }
         return columns;
     }
 
     makeRes(res){
-        this.setState({validRes: res.validRes, validMsg: res.validMsg});
+        this.setState({validRes: res.validRes, validMsg: res.validMsg, submitDisabled: false});
     }
 }
 

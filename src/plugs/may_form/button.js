@@ -37,7 +37,7 @@ Button.defaultProps = {
     fnClick: undefined
 };
 
-["Info", "Warning", "Error", "Alter"].forEach(va => {
+["Info", "Warning", "Error", "Alter", "Success"].forEach(va => {
     Button[va] = props => <Button {...props} className={va.toLowerCase() + " " + props.className}/>;
 });
 

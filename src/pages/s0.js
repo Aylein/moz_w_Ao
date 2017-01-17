@@ -1,5 +1,5 @@
 import React from "react";
-import {Form} from "../plugs";
+import {Form, Mod} from "../plugs";
 
 import "../styles/index.less";
 const validate = new Form.Valid();
@@ -32,10 +32,10 @@ class Index extends React.Component{
                                     callback({name: "va2", res: {validRes: true, validMsg: "something wrong"}});
                                 //else 
                                     //this.onValid(Object.assign({}, va, {res: {validRes: false, validMsg: "something wrong"}}));
-                            }, 4000);
+                            }, 1500);
                         return res;
                     }}
-                ], msg: "va2"},
+                ], msg: "va2", required: true},
                 va3: {type: "checkbox", title: "va3", input: {value: [], name: "va3", list: [
                     {value: 1, text: "1"},
                     {value: 2, text: "2"},
@@ -73,7 +73,11 @@ class Index extends React.Component{
         }
         return <div>
             <Form.miniForm
-                fnSubmit={(va, callback) => { callback({validRes: false, validMsg: "添加失败"}); }}
+                fnSubmit={(va, callback) => {
+                    console.log(Mod);
+                    Mod.Alert();
+                    callback({validRes: false, validMsg: "添加失败"}); 
+                }}
                 list={this.state.columns}
             />
             {/*<Form 
