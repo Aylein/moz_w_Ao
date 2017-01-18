@@ -1,10 +1,7 @@
 @import "../../../styles/index";
-@font_color: @main_font_color;
 @font_error_color: #0000ff;
 @chose_color: #d4e5fb;
-@font_color_disabled: @disabled_color;
 @border_color: #a9a9a9;
-@border_radius: 0.15rem;
 @input_height: 2.8rem;
 
 .may_form_item {
@@ -43,7 +40,7 @@
         text-align: right;
     }
     .may_form_validres.unvalid { color: #ea1000; }
-    .may_form_validres.valid { color: @font_color; }
+    .may_form_validres.valid { color: @main_font_color; }
     .may_form_validres.validating { color: #ff9800; }
     .cb {
         clear: both;
@@ -58,7 +55,7 @@
     line-height: @input_height;
     height: @input_height;
     .fa {
-        color: @font_color;
+        color: @main_font_color;
         font-size: 1.2rem;
         padding: 0 0.3rem 0 0;
     }
@@ -92,7 +89,7 @@
         height: @input_height;
         line-height: @input_height - 0.1;
         border: 0.1rem solid @border_color;
-        border-radius: @border_radius;
+        border-radius: @main_boder_radius;
         padding: 0 2rem 0 0.5rem;
         cursor: pointer;
         float: left;
@@ -100,7 +97,7 @@
         overflow: hidden;
     }
     span.disabled {
-        background-color: @font_color_disabled;
+        background-color: @disabled_color;
         cursor: default;
     }
     .fa {
@@ -116,7 +113,7 @@
         top: 110%;
         z-index: 5;
         border: 0.1rem solid @border_color;
-        border-radius: @border_radius;
+        border-radius: @main_boder_radius;
         padding: 0.4rem 0.5rem;
         background: #ffffff;
         min-width: 100%;
@@ -140,11 +137,11 @@
         height: @input_height;
         padding: 0 2rem 0 0.5rem;
         border: 0.1rem solid @border_color;
-        border-radius: @border_radius;
+        border-radius: @main_boder_radius;
         float: left;
     }
     input:disabled {
-        background-color: @font_color_disabled;
+        background-color: @disabled_color;
     }
     .fa {
         position: absolute;
@@ -162,7 +159,7 @@
     button {
         height: @input_height;
         border: 0.1rem solid @border_color;
-        border-radius: @border_radius;
+        border-radius: @main_boder_radius;
         padding: 0 1.5rem; 
         cursor: pointer;
         float: left;
@@ -184,27 +181,27 @@
         cursor: default;
     }
     button.info {
-        background-color: #5e87b0; 
+        background-color: @info_color; 
         color: #ffffff;
         border-color: #08529c;
     }
     button.warning {
-        background-color: #ff9800; 
+        background-color: @warning_color; 
         color: #ffffff;
         border-color: #d88100;
     }
     button.error {
-        background-color: #f44336; 
+        background-color: @error_color; 
         color: #ffffff;
         border-color: #ea1000;
     }
     button.alter {
-        background-color: #484848; 
+        background-color: @alter_color; 
         color: #ffffff;
         border-color: #000000;
     }
     button.success {
-        background-color: #36c722; 
+        background-color: @success_color; 
         color: #ffffff;
         border-color: #006109;
     }

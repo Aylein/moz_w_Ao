@@ -1,4 +1,50 @@
-.mod_div {
-    display: none;
-    .mod_cover {position: absolute; top: 0; right: 0; bottom: 0; left: 0; background: #000000; opacity: 0.5;}
+@import "../../../styles/index";
+@border_radius: @main_boder_radius;
+
+.mod_item {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 10;
+    .mod_cover {
+        position: absolute; 
+        top: 0; 
+        right: 0; 
+        bottom: 0; 
+        left: 0; 
+        background: #000000; 
+        opacity: 0.6;
+    }
+    .mod_alert_item {
+        position: absolute; 
+        width: 40rem; 
+        //min-height: 20rem;
+        top: 20%;
+        left: 50%;
+        margin-left: -20rem;
+        background: #ffffff;
+        border-radius: @main_boder_radius;
+        .mod_alert_close {
+            position: absolute; 
+            right: 0.8rem;
+            top: 0.7rem;
+            cursor: pointer;
+        }
+        .mod_alert_close.fa {
+            color: @main_font_color;
+        }
+        .mod_title {
+            height: 2.5rem;
+            line-height: 2.5rem;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            padding: 0 2.5rem 0 0.5rem;
+        }
+        .mod_content {
+            padding: 0.5rem;
+        }
+    }
 }

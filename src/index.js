@@ -6,6 +6,9 @@ import Index from "./pages/index"
 import S0 from "./pages/s0";
 import E404 from "./pages/404";
 
+import "./styles/index.less";
+import "./styles/main.less";
+
 ReactDom.render(
     <Router history={browserHistory}>
         <Route path="/" component={Index}>

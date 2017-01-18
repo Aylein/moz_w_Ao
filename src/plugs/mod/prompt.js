@@ -4,13 +4,15 @@ import "./styles/style.less";
 import Form from "../may_form";
 import Item from "./item";
 
-class Alert extends React.Component{
+class Prompt extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            display: true
+            display: true,
+            text: ""
         };
 
+        this.onChange = this.onChange.bind(this);
         this.onClose = this.onClose.bind(this);
         this.onOk = this.onOk.bind(this);
     }
@@ -21,14 +23,18 @@ class Alert extends React.Component{
             title={this.props.title}
             fnClose={this.onClose}
         >
-            <div className="mb1">{this.props.content}</div>
-            <Form.Button className={"mr1" + (this.props.type ? " " + this.props.type : "")} text="ok" fnClick={this.onOk}/>
+            <div className="mb1"><Form.Text className="w39" type={this.props.type} value={this.state.text} fnChange={this.onChange}/></div>
+            <Form.Button.Info className="mr1" text="ok" fnClick={this.onOk}/>
         </Item>;
+    }
+
+    onChange(va){
+        this.setState({text: va.value});
     }
 
     onOk(){
         let res = true;
-        if(this.props.fnOk && typeof this.props.fnOk == "function") res = this.props.fnOk();
+        if(this.props.fnOk && typeof this.props.fnOk == "function") res = this.props.fnOk(this.state.text);
         if(res === false) return;
         this.setState({display: false});
     }
@@ -41,13 +47,12 @@ class Alert extends React.Component{
     }
 }
 
-Alert.defaultProps = {
+Prompt.defaultProps = {
+    type: "text",
     title: "",
-    content: "",
-    type: "info",
     
     fnOk: null,
     fnClose: null
 };
 
-export default Alert;
+export default Prompt;

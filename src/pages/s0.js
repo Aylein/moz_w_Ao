@@ -45,7 +45,8 @@ class Index extends React.Component{
                 ], msg: "va3", required: true},
                 va4: {type: "textarea", title: "va4", input: {className: "w25", value: "", name: "va4"}, msg: "va4"}
             },
-            selectedId: ""
+            selectedId: "",
+            display: false
         }
 
         this.data = [
@@ -72,13 +73,42 @@ class Index extends React.Component{
             comp.push(<Form.Item key={key} {...this.state.columns[key]} fnChange={this.onChang} fnValid={this.onValid}/>)
         }
         return <div>
+            <Form.Button.Info text="mod" fnClick={() => {
+                this.setState({display: true});
+            }}/>
+            <Mod.Item
+                display={this.state.display} 
+                fnClose={() => { this.setState({display: false}); }}
+                title="可控弹出框"
+            >
+                <div className="mb1">这是一个可控弹出框</div>
+                <Form.Button.Error className="mr1" text="error" fnClick={() => { this.setState({display: false}); }}/>
+            </Mod.Item>
             <Form.miniForm
                 fnSubmit={(va, callback) => {
-                    console.log(Mod);
-                    Mod.Alert();
                     callback({validRes: false, validMsg: "添加失败"}); 
                 }}
                 list={this.state.columns}
+                buttons={[
+                    {type: "submit", className: "info mr1", text: "ok"},
+                    {type: "reset", className: "alter mr1", text: "reset"},
+                    {type: "button", className: "success mr1", text: "alert", fnClick: () => {
+                        // Mod.Alert.Alter({
+                        //     title: "不可控弹出框",
+                        //     content: "这是一个不可控弹出框"
+                        // });
+                        // Mod.Confirm({
+                        //     title: "不可控弹出框",
+                        //     content: "这是一个不可控弹出框",
+                        //     fnOk: res => { alert(res); }
+                        // });
+                        Mod.Prompt({
+                            title: "输入密码",
+                            type: "password",
+                            fnOk: res => { alert(res); return false; }
+                        });
+                    }}
+                ]}
             />
             {/*<Form 
                 fnSubmit={this.onSubmit} 
