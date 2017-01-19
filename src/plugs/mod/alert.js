@@ -1,5 +1,4 @@
 import React from "react";
-import "./styles/style.less";
 
 import Form from "../may_form";
 import Item from "./item";

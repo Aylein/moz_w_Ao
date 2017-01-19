@@ -6,6 +6,8 @@ import Alert from "./alert";
 import Confirm from "./confirm";
 import Prompt from "./prompt";
 
+require("./styles/style.less");
+
 const body = document.body;
 const makeDiv = () => {
     let div = document.getElementById("mod_div");
@@ -22,70 +24,62 @@ const distroyDiv = () => {
     if(div) body.removeChild(div);
 };
 
-const AlertMake = (opt) => {
-    return <Alert 
-        {...opt} 
-        type={opt.type || "info"}
-        fnClose={() => {
-            let res = true;
-            if(opt.fnClose && typeof opt.fnClose == "function") res = opt.fnClose();
-            if(res !== false) distroyDiv();
-            return res;
-        }}
-        fnOk={() => {
-            let res = true;
-            if(opt.fnOk && typeof opt.fnOk == "function") res = opt.fnOk();
-            if(res !== false) distroyDiv();
-            return res;
-        }}
-    />;
-};
-const makeAlert = type => {
-    return (opt = {}) => {
-        ReactDom.render(<AlertMake {...opt} type={type}/>, makeDiv());
-    }
-};
-const ConfirmMake = (opt) => {
-    return <Confirm 
-        {...opt}
-        fnClose={() => {
-            let res = true;
-            if(opt.fnClose && typeof opt.fnClose == "function") res = opt.fnClose();
-            if(res !== false) distroyDiv();
-            return res;
-        }}
-        fnOk={() => {
-            let res = true;
-            if(opt.fnOk && typeof opt.fnOk == "function") res = opt.fnOk(true);
-            if(res !== false) distroyDiv();
-            return res;
-        }}
-        fnCancel={() => {
-            let res = true;
-            if(opt.fnCancel && typeof opt.fnCancel == "function") res = opt.fnCancel(false);
-            if(res !== false) distroyDiv();
-            return res;
-        }}
-    />;
-};
-const PromptMake = (opt) => {
-    return <Prompt 
-        {...opt}
-        fnClose={() => {
-            let res = true;
-            if(opt.fnClose && typeof opt.fnClose == "function") res = opt.fnClose();
-            console.log(2, res);
-            if(res !== false) distroyDiv();
-            return res;
-        }}
-        fnOk={(va) => {
-            let res = true;
-            if(opt.fnOk && typeof opt.fnOk == "function") res = opt.fnOk(va);
-            if(res !== false) distroyDiv();
-            return res;
-        }}
-    />;
-};
+const AlertMake = opt => <Alert 
+    {...opt} 
+    type={opt.type || "info"}
+    fnClose={() => {
+        let res = true;
+        if(opt.fnClose && typeof opt.fnClose == "function") res = opt.fnClose();
+        if(res !== false) distroyDiv();
+        return res;
+    }}
+    fnOk={() => {
+        let res = true;
+        if(opt.fnOk && typeof opt.fnOk == "function") res = opt.fnOk();
+        if(res !== false) distroyDiv();
+        return res;
+    }}
+/>;
+const makeAlert = type => ((opt = {}) => {
+    ReactDom.render(<AlertMake {...opt} type={type}/>, makeDiv());
+});
+const ConfirmMake = opt => <Confirm 
+    {...opt}
+    fnClose={() => {
+        let res = true;
+        if(opt.fnClose && typeof opt.fnClose == "function") res = opt.fnClose();
+        if(res !== false) distroyDiv();
+        return res;
+    }}
+    fnOk={() => {
+        let res = true;
+        if(opt.fnOk && typeof opt.fnOk == "function") res = opt.fnOk(true);
+        if(res !== false) distroyDiv();
+        return res;
+    }}
+    fnCancel={() => {
+        let res = true;
+        if(opt.fnCancel && typeof opt.fnCancel == "function") res = opt.fnCancel(false);
+        if(res !== false) distroyDiv();
+        return res;
+    }}
+/>;
+const PromptMake = opt => <Prompt 
+    {...opt}
+    fnClose={() => {
+        let res = true;
+        if(opt.fnClose && typeof opt.fnClose == "function") res = opt.fnClose();
+        console.log(2, res);
+        if(res !== false) distroyDiv();
+        return res;
+    }}
+    fnOk={(va) => {
+        let res = true;
+        if(opt.fnOk && typeof opt.fnOk == "function") res = opt.fnOk(va);
+        if(res !== false) distroyDiv();
+        return res;
+    }}
+/>;
 
 const Mod = {
     Alert: makeAlert("info"),

@@ -6,8 +6,9 @@ import Index from "./pages/index"
 import S0 from "./pages/s0";
 import E404 from "./pages/404";
 
-import "./styles/index.less";
-import "./styles/main.less";
+require("./styles/main.less");
+require("./styles/extra.less");
+require("font-awesome-webpack");
 
 ReactDom.render(
     <Router history={browserHistory}>

@@ -2,8 +2,6 @@ import React from "react";
 import ReactDom from "react-dom";
 import {Link} from "react-router";
 
-import "font-awesome-webpack";
-
 export default class Index extends React.Component{
     render(){
         return <div>

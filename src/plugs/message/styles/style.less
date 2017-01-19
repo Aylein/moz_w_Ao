@@ -1,0 +1,25 @@
+@import "../../../styles/index";
+
+.msg_div {
+    position: fixed;
+    bottom: 10rem;
+    left: 0;
+    width: 0;
+    .msg_item {
+        display: inline-block;
+        height: 2.2rem;
+        line-height: 2.2rem;
+        padding: 0 5rem 0 2rem;
+        color: #ffffff;
+        border-top-right-radius: @main_boder_radius;
+        border-bottom-right-radius: @main_boder_radius;
+        margin: 0.5rem 0;
+        cursor: pointer;
+    }
+    .msg_item.info {background: @info_color;}
+    .msg_item.warning {background: @warning_color;}
+    .msg_item.error {background: @error_color;}
+    .msg_item.alter {background: @alter_color;}
+    .msg_item.success {background: @success_color;}
+    .msg_item.dn {display: none;}
+}

@@ -1,5 +1,4 @@
 import React from "react";
-import "./styles/style.less";
 
 class RadioList extends React.Component{
     constructor(props){

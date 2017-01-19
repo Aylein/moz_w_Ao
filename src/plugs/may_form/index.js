@@ -12,6 +12,8 @@ import Valid from "./valid";
 
 const validate = new Valid();
 
+require("./styles/style.less");
+
 class Index extends React.Component{
     constructor(props){
         super(props);

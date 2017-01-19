@@ -1,5 +1,4 @@
 import React from "react";
-import "./styles/style.less";
 
 class CheckBoxList extends React.Component{
     constructor(props){

@@ -1,5 +1,4 @@
 import React from "react";
-import "./styles/style.less";
 
 class Select extends React.Component{
     constructor(props){

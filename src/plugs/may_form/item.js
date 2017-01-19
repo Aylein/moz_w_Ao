@@ -1,5 +1,4 @@
 import React from "react";
-import "./styles/style.less";
 
 import Input from "./input";
 import CheckBox from "./checkbox";
