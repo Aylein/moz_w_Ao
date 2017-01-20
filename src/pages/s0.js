@@ -1,5 +1,5 @@
 import React from "react";
-import {Form, Mod, Msg} from "../plugs";
+import {Form, Mod, Msg, Pager} from "../plugs";
 
 const validate = new Form.Valid();
 
@@ -42,7 +42,8 @@ class Index extends React.Component{
                 va4: {type: "textarea", title: "va4", input: {className: "w25", value: "", name: "va4"}, msg: "va4"}
             },
             selectedId: "",
-            display: false
+            display: false,
+            pageNo: 1
         }
 
         this.data = [
@@ -70,6 +71,13 @@ class Index extends React.Component{
                 <div className="mb1">这是一个可控弹出框</div>
                 <Form.Button.Error className="mr1" text="error" fnClick={() => { this.setState({display: false}); }}/>
             </Mod.Item>
+            <br />
+            <br />
+            <Pager pageNo={this.state.pageNo} pageSIze="10" total="1024" totalPage="3" showNum={8} fnClick={(va) => {
+                this.setState({pageNo: va})
+            }}/>
+            <br />
+            <br />
             <Form.miniForm
                 fnSubmit={(va, callback) => {
                     callback({validRes: false, validMsg: "添加失败"}); 
@@ -80,7 +88,7 @@ class Index extends React.Component{
                     {type: "reset", className: "alter mr1", text: "reset"},
                     {type: "button", className: "success mr1", text: "alert", fnClick: () => {
                         Msg[this.type[Math.ceil(Math.random() * 100) % 5]](++this.key * 1000);
-                        // Mod.Alert.Alter({
+                        // Mod.Alert({
                         //     title: "不可控弹出框",
                         //     content: "这是一个不可控弹出框"
                         // });

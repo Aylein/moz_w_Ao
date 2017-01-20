@@ -32,7 +32,7 @@ const makeMsg = type => (msg => {
         autoClose={true}
         autoCloseCount={type == "error" ? 15000 : 7000}
         fnClose={() => {
-            ++Msg.length > Msg.list.length && distroyDiv();
+            ++Msg.length >= Msg.list.length && distroyDiv();
         }}
     />);
     ReactDom.render(<span>{Msg.list}</span>, makeDiv());

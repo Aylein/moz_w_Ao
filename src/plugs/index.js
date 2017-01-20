@@ -1,6 +1,7 @@
 import Form from "./may_form";
 import Mod from "./mod";
 import Msg from "./message";
+import Pager from "./pager"
 
 const RegExp = {
     isNumber: /^\d+$/, 
@@ -20,4 +21,4 @@ const RegExp = {
     }
 };
 
-export {RegExp, Form, Mod, Msg};
+export {RegExp, Form, Mod, Msg, Pager};

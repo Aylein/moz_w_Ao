@@ -1,0 +1,35 @@
+@import "../../../styles/index";
+
+.pager_div {
+    display: inline-block;
+    .pager_item {
+        display: inline-block;
+        margin: 0 0.4rem 0 0;
+        cursor: pointer;
+        height: 2.2rem;
+        line-height: 2rem;
+        padding: 0 1rem;
+        border: 0.1rem solid @info_color;
+        border-radius: @main_boder_radius;
+        background: @info_color;
+        color: #ffffff;
+    }
+    .pager_item:hover {
+        text-decoration: none;
+        opacity: 0.9;
+    }
+    .pager_item:active {
+        opacity: 0.8;
+    }
+    .pager_item.selected {
+        background: #ffffff;
+        color: @info_color;
+    }
+    .pager_first, .pager_pref, .pager_next, .pager_last{
+        font-size: 1.4rem;
+    }
+    .pager_first.disabled, .pager_pref.disabled, .pager_next.disabled, .pager_last.disabled{
+        opacity: 0.4;
+        cursor: default;
+    }
+}
