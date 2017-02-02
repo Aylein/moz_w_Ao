@@ -3,7 +3,8 @@
 .pager_div {
     display: inline-block;
     .pager_item {
-        display: inline-block;
+        //display: inline-block;
+        float: left;
         margin: 0 0.4rem 0 0;
         cursor: pointer;
         height: 2.2rem;
@@ -27,9 +28,15 @@
     }
     .pager_first, .pager_pref, .pager_next, .pager_last{
         font-size: 1.4rem;
+        line-height: 1.8rem;
     }
     .pager_first.disabled, .pager_pref.disabled, .pager_next.disabled, .pager_last.disabled{
         opacity: 0.4;
         cursor: default;
     }
+}
+.pager_div:after {
+    content: "";
+    display: block;
+    clear: both;
 }

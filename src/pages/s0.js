@@ -1,5 +1,5 @@
 import React from "react";
-import {Form, Mod, Msg, Pager} from "../plugs";
+import {Form, Mod, Msg, Pager, Box} from "../plugs";
 
 const validate = new Form.Valid();
 
@@ -73,7 +73,11 @@ class Index extends React.Component{
             </Mod.Item>
             <br />
             <br />
-            <Pager pageNo={this.state.pageNo} pageSIze="10" total="1024" totalPage="3" showNum={8} fnClick={(va) => {
+            <Box.Item>http://www.aylein.com</Box.Item>
+            <br />
+            <Box.Alter title="Aylein" showClose={false}>http://www.aylein.com</Box.Alter>
+            <br />
+            <Pager pageNo={this.state.pageNo} pageSIze="10" total="1024" totalPage="103" showNum={8} fnClick={(va) => {
                 this.setState({pageNo: va})
             }}/>
             <br />
@@ -106,7 +110,8 @@ class Index extends React.Component{
                 ]}
             />
             <br />
-            {this.data.map((va, i) => <div key={i}>
+            {/*
+                {this.data.map((va, i) => <div key={i}>
                 <span className="w10 dib txc">{va.va0}</span>
                 <span className="w10 dib txc">{va.va1}</span>
                 <span className="w10 dib txc">{va.va2}</span>
@@ -114,6 +119,7 @@ class Index extends React.Component{
                 <span className="w10 dib txc">{va.va4}</span>
                 <span className="w10 dib txc"><a href="javascript: void(0);" onClick={() => { this.onUpdate(va.id); }}>→</a></span>
             </div>)}
+            */}
         </div>;
     }
 }

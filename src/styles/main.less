@@ -1,5 +1,62 @@
 @import "./index.less";
 .main {
     width: 100rem;
+    height: 100%;
     margin: 0 auto;
+    padding-top: 4rem;
+}
+.pager_main {
+    height: 100%;
+}
+.pager_main_section {
+    padding: 1rem 0;
+    min-height: 60%;
+}
+
+/*header*/
+.pager_main_header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4rem;
+    background: @main_font_color;
+    z-index: 9;
+    .pager_main_header_main {
+        width: 100rem;
+        margin: 0 auto;
+        img.pager_main_header_master {
+            width: 4rem;
+            height: 4rem;
+        }
+        a.pager_main_header_link {
+            vertical-align: super;
+            font-size: 1.5rem;
+            color: #ffffff;
+            padding: 0 0.5rem;
+        }
+        a.pager_main_header_link.selected {
+            text-decoration: underline;
+        }
+    }
+}
+body.pr17px .pager_main_header {
+    padding-right: 16px;
+}
+
+/*footer*/
+.pager_main_footer {
+    position: absolute;
+    right: 0;
+    left: 0;
+    min-height: 40%;
+    background: #3b3b3b;
+    color: #ffffff;
+    .pager_main_footer_section {
+        width: 100rem;
+        margin: 0 auto;
+    }
+}
+body.pr17px .pager_main_footer {
+    padding-right: 16px;
 }

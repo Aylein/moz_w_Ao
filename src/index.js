@@ -5,6 +5,7 @@ import {Router, Route, IndexRoute, NotFoundRoute, browserHistory} from "react-ro
 import Index from "./pages/index"
 import S0 from "./pages/s0";
 import E404 from "./pages/404";
+import About from "./pages/about"
 
 require("./styles/main.less");
 require("./styles/extra.less");
@@ -15,6 +16,7 @@ ReactDom.render(
         <Route path="/" component={Index}>
             <IndexRoute component={S0}/>
             <Route path="/test" component={S0}/>
+            <Route path="/about" component={About}/>
             <Route path="*" component={E404}/>
         </Route>
     </Router>

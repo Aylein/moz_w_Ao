@@ -1,7 +1,6 @@
 @import "../../../styles/index";
 @font_error_color: #0000ff;
 @chose_color: #d4e5fb;
-@border_color: #a9a9a9;
 @input_height: 2.8rem;
 
 .may_form_item {
@@ -184,27 +183,27 @@
     button.info {
         background-color: @info_color; 
         color: #ffffff;
-        border-color: #08529c;
+        border-color: @info_border_color;
     }
     button.warning {
         background-color: @warning_color; 
         color: #ffffff;
-        border-color: #d88100;
+        border-color: @warning_border_color;
     }
     button.error {
         background-color: @error_color; 
         color: #ffffff;
-        border-color: #ea1000;
+        border-color: @error_border_color;
     }
     button.alter {
         background-color: @alter_color; 
         color: #ffffff;
-        border-color: #000000;
+        border-color: @alter_border_color;
     }
     button.success {
         background-color: @success_color; 
         color: #ffffff;
-        border-color: #006109;
+        border-color: @success_border_color;
     }
     .fa {
         position: absolute;

@@ -1,0 +1,111 @@
+@import "../../../styles/index";
+
+.box_inline {
+    position: relative;
+    width: 100%;
+    border-radius: @main_boder_radius;
+    margin: 0.5rem 0;
+    border: 0.1rem solid @border_color;
+    .box_inline_title {
+        height: 2.5rem;
+        line-height: 2.5rem;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        padding: 0 2.5rem 0 0.5rem;
+        .box_inline_close {
+            position: absolute; 
+            right: 0.8rem;
+            top: 0.6rem;
+            cursor: pointer;
+        }
+    }
+    .box_inline_content {
+        padding: 1rem;
+    }
+}
+.box_inline.info {
+    border-color: @info_border_color;
+    .box_inline_title {
+        background: @info_color;
+        color: #ffffff;
+    }
+}
+.box_inline.warning {
+    border-color: @warning_border_color;
+    .box_inline_title {
+        background: @warning_color;
+        color: #ffffff;
+    }
+}
+.box_inline.error {
+    border-color: @error_border_color;
+    .box_inline_title {
+        background: @error_color;
+        color: #ffffff;
+    }
+}
+.box_inline.alter {
+    border-color: @alter_border_color;
+    .box_inline_title {
+        background: @alter_color;
+        color: #ffffff;
+    }
+}
+.box_inline.success {
+    border-color: @success_border_color;
+    .box_inline_title {
+        background: @success_color;
+        color: #ffffff;
+    }
+}
+
+.box_inline_item {
+    position: relative;
+    width: 100%;
+    border-radius: @main_boder_radius;
+    margin: 0.5rem 0;
+    border: 0.1rem solid @border_color;
+    color: @main_font_color;
+    padding: 1rem;
+    padding-top: 1.8rem;
+    .box_inline_item_title {
+        // height: 2.5rem;
+        // line-height: 2.5rem;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        padding: 0 2.5rem 0 0.5rem;
+        .box_inline_item_close {
+            position: absolute; 
+            right: 0.8rem;
+            top: 0.6rem;
+            cursor: pointer;
+        }
+    }
+}
+.box_inline_item.info {
+    border-color: @info_border_color;
+    background: @info_color;
+    color: #ffffff;
+}
+.box_inline_item.warning {
+    border-color: @warning_border_color;
+    background: @warning_color;
+    color: #ffffff;
+}
+.box_inline_item.error {
+    border-color: @error_border_color;
+    background: @error_color;
+    color: #ffffff;
+}
+.box_inline_item.alter {
+    border-color: @alter_border_color;
+    background: @alter_color;
+    color: #ffffff;
+}
+.box_inline_item.success {
+    border-color: @success_border_color;
+    background: @success_color;
+    color: #ffffff;
+}
