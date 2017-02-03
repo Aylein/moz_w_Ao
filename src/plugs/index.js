@@ -1,4 +1,5 @@
 import Form from "./may_form";
+import Com from "./may_com";
 import Mod from "./mod";
 import Msg from "./message";
 import Pager from "./pager"
@@ -22,4 +23,4 @@ const RegExp = {
     }
 };
 
-export {RegExp, Form, Mod, Msg, Pager, Box};
+export {RegExp, Form, Com, Mod, Msg, Pager, Box};

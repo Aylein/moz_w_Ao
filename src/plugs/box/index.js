@@ -62,8 +62,6 @@ Box.defaultProps = {
 
 ["Info", "Warning", "Error", "Alter", "Success"].forEach(va => {
     Box[va] = props => <Box {...props} type={va.toLowerCase()}/>;
-});
-["Info", "Warning", "Error", "Alter", "Success"].forEach(va => {
     Item[va] = props => <Item {...props} type={va.toLowerCase()}/>;
 });
 

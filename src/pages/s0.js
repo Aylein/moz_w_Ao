@@ -1,5 +1,5 @@
 import React from "react";
-import {Form, Mod, Msg, Pager, Box} from "../plugs";
+import {Form, Com, Mod, Msg, Pager, Box} from "../plugs";
 
 const validate = new Form.Valid();
 
@@ -77,6 +77,10 @@ class Index extends React.Component{
             <br />
             <Box.Alter title="Aylein" showClose={false}>http://www.aylein.com</Box.Alter>
             <br />
+            <Pager pageNo={this.state.pageNo} pageSIze="10" total="1024" totalPage="103" showNum={8} fnClick={(va) => {
+                this.setState({pageNo: va})
+            }}/>
+            <Com {...{child: {child: {child: {child: {child: {child: {child: {}}}}}}}}}/>
             <Pager pageNo={this.state.pageNo} pageSIze="10" total="1024" totalPage="103" showNum={8} fnClick={(va) => {
                 this.setState({pageNo: va})
             }}/>
