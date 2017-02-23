@@ -1,6 +1,8 @@
 import React from "react";
 import {Form, Com, Mod, Msg, Pager, Box} from "../plugs";
 
+//fetch("/api/aylein").then(res => { console.log(res); });
+
 const validate = new Form.Valid();
 
 class Index extends React.Component{
@@ -87,6 +89,35 @@ class Index extends React.Component{
             <br />
             <br />
             <Form.miniForm
+                fnChange={({value, column, columns}) => {
+                    let arr = [];
+                    if(value.name == "va0"){
+                        value.value = "a" + value.value;
+                    }
+                    switch(value.name){
+                        case "va0":
+                            value.value = "a" + value.value;
+                            arr.push(value);
+                        case "va1":
+                            switch(value.value){
+                                case 1:
+                                    arr.push({name: "va2", value: 1});
+                                    break;
+                                case 3:
+                                    if(columns["va2"].input.value == 3){
+                                        arr.push({
+                                            value: 0,
+                                            name: "va2"
+                                        });
+                                    }
+                                    break;
+                            };
+                            arr.push(value);
+                            break;
+                        default: arr.push(value); break;
+                    }
+                    return arr;
+                }}
                 fnSubmit={(va, callback) => {
                     callback({validRes: false, validMsg: "添加失败"}); 
                 }}

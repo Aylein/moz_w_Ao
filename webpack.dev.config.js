@@ -1,7 +1,7 @@
 var path = require("path");
 var webpack = require("webpack");
 var html = require("html-webpack-plugin");
-//var es3ifyPlugin = require("es3ify-webpack-plugin");
+var es3ifyPlugin = require("es3ify-webpack-plugin");
 //var open = require("open-browser-webpack-plugin");
 
 module.exports = {
@@ -18,14 +18,14 @@ module.exports = {
         path: path.join(__dirname),
         filename: "[name].bundle.js"
     },
-    // devServer: {
-    //     proxy: {
-    //         "/api/*": {
-    //             target: "http://************",
-    //             secure: false
-    //         }
-    //     }
-    // },
+    devServer: {
+        proxy: {
+            "/api/*": {
+                target: "http://localhost:801/",
+                secure: false
+            }
+        }
+    },
     module: {
         loaders: [
             {
@@ -56,7 +56,7 @@ module.exports = {
     },
     plugins: [
         new html({template: "default.html"}),
-        //new es3ifyPlugin(),
+        new es3ifyPlugin(),
         new webpack.optimize.OccurenceOrderPlugin(),
         new webpack.HotModuleReplacementPlugin(),
         new webpack.NoErrorsPlugin()

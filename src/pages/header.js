@@ -21,7 +21,7 @@ export default class Header extends React.Component{
                 <Link to="/" onClick={() => { this.onClick("AyleinOter"); }}><img className="pager_main_header_master" src={require("../img/master.jpg")}/></Link>
                 {this.state.list.map((va, i) => <Link
                     key={i} 
-                    className={"pager_main_header_link" + (this.state.select == va.text ? " selected" : "")} 
+                    className="pager_main_header_link" //{"pager_main_header_link" + (this.state.select == va.text ? " selected" : "")} 
                     to={va.to} 
                     onClick={() => { this.onClick(va.text); }}
                 >{va.text}</Link>)}

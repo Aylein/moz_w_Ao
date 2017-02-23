@@ -25,6 +25,7 @@ class Index extends React.Component{
         }
         //if(Array.isArray(props.list)) this.state.columns = this.makeColumns(props);
         this.list = props.list;
+        this.T = {};
 
         this.onChang = this.onChang.bind(this);
         this.onValid = this.onValid.bind(this);
@@ -42,7 +43,9 @@ class Index extends React.Component{
             <Button.Alter className="mr1" key={1} type="reset" text="reset"/>
         ];
         for(let key in  this.state.columns){
-            comp.push(<Form.Item key={key} {...this.state.columns[key]} fnChange={this.onChang} fnValid={this.onValid}/>)
+            comp.push(<Form.Item key={key} {...this.state.columns[key]} fnChange={e => { 
+                this.onChang(e, this.state.columns[key]); 
+            }} fnValid={this.onValid}/>)
         }
         return <Form
                 fnSubmit={this.onSubmit} 
@@ -57,14 +60,35 @@ class Index extends React.Component{
             </Form>;
     }
 
-    onChang(va){
+    componentWillUnmount() {
+        Object.keys(this.T).forEach(va => { clearTimeout(va); });
+    }
+
+    onChang(value, column){
         if(this.validation_res) this.validation_res = null;
-        let obj = {}, input = Object.assign({}, this.state.columns[va.name].input, {value: va.value});
-        obj[va.name] = Object.assign({}, this.state.columns[va.name], {input: input}, va.res ? va.res : {});
-        this.setState({columns: Object.assign({}, this.state.columns, obj)});
+        if(column.fnChange && typeof column.fnChange == "function"){
+            value = column.fnChange({value, column, columns: this.state.columns});
+        }
+        if(this.props.fnChange && typeof this.props.fnChange == "function"){
+            value = this.props.fnChange({value, column, columns: this.state.columns});
+        }
+        value = Array.isArray(value) ? this.makeObj(value) : value;
+        let arr = Object.keys(this.state.columns).map(key => {
+            let co = this.state.columns[key];
+            if(value[key] && key !== column.name && co.validation){
+                value[key].res = {validMsg: "validating"};
+                if(this.T[key]) clearTimeout(this.T[key]);
+                this.T[key] = setTimeout(() => {
+                    this.onValid({name: key, value: value[key].value, res: validate.valid(co.validation, value[key].value)});
+                }, 10000);
+            }
+            return value[key] ? Object.assign(this.state.columns[key], {name: key, input: Object.assign(this.state.columns[key].input, {value: value[key].value})}, value[key].res) : this.state.columns[key];
+        });
+        this.setState({columns: this.makeObj(arr)});
     }
 
     onValid(va){
+        console.log(va);
         let obj = {};
         obj[va.name] = Object.assign({}, this.state.columns[va.name], va.res);
         this.setState({columns: Object.assign({}, this.state.columns, obj)});
@@ -149,6 +173,7 @@ class Index extends React.Component{
         else columns = list;
         for(let field in columns){
             let va = columns[field];
+            va.name = field;
             if(va.validation){
                 va.validation.callback = this.onValidRes.bind(this);
                 va.validRes = true;
@@ -158,12 +183,19 @@ class Index extends React.Component{
         return columns;
     }
 
+    makeObj(res_list){
+        let obj = {};
+        res_list.forEach(va => { obj[va.name] = va; });
+        return obj;
+    }
+
     makeRes(res){
         this.setState({validRes: res.validRes, validMsg: res.validMsg, submitDisabled: false});
     }
 }
 
 Index.defaultProps = {
+    fnChange: null,
     fnSubmit: null,
     fnReset: null, 
     list: [],

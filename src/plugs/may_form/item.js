@@ -41,7 +41,6 @@ class Item extends React.Component{
         if(this.validT) clearTimeout(this.validT);
     }
     
-
     makeRender(props){
         switch(this.props.type){
             case "checkbox": return <CheckBox {...props} fnClick={this.onChange}/>;
@@ -55,9 +54,7 @@ class Item extends React.Component{
 
     onChange(va){
         if(this.props.validation){
-            if(this.validT){
-                clearTimeout(this.validT);
-            }
+            if(this.validT) clearTimeout(this.validT);
             this.validT = setTimeout(() => {
                 this.onValid(va, this.props.validation);
             }, 700);
