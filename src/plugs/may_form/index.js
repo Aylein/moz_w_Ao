@@ -88,7 +88,6 @@ class Index extends React.Component{
     }
 
     onValid(va){
-        console.log(va);
         let obj = {};
         obj[va.name] = Object.assign({}, this.state.columns[va.name], va.res);
         this.setState({columns: Object.assign({}, this.state.columns, obj)});

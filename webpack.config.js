@@ -15,7 +15,8 @@ module.exports = {
     output: {
         publicPath: "/",
         path: path.resolve(__dirname, "dist"),
-		filename: "./lib/[chunkhash:8].[name].min.js"
+		filename: "./lib/[chunkhash:8].[name].min.js",
+        chunkFilename: "./lib/[chunkhash:8]-[name].chunk.min.js"
     },
     plugins: [
         new webpack.DefinePlugin({
